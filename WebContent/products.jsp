@@ -37,7 +37,12 @@
 						<li><a href="">Account</a></li>
 					</ul>
 				</nav>
+<<<<<<< Updated upstream
 				<a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a>
+=======
+				<img src="assets/cart.png" width="30px" height="30px">
+				<a href="account.jsp" class="btn-logout">Log Out</a>
+>>>>>>> Stashed changes
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">
 			</div>
 	
