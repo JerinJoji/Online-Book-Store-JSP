@@ -20,10 +20,12 @@
 				<!-- Search Bar -->	
 				<div class="container-search">
 					<div class="search-box">
+					<form>
 						<input type="text" class="search" placeholder="What are you looking for?">
 						<button type="submit" class="search-btn">
 						<i class="fa fa-search"></i>
 						</button>
+					</form>
 					</div>
 				</div>
 				<nav>
