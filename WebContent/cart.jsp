@@ -36,6 +36,7 @@
 					</ul>
 				</nav>
 				<img src="assets/cart.png" width="30px" height="30px">
+				<a href="account.jsp" class="btn-logout">Log Out</a>
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">
 			</div>
 	
