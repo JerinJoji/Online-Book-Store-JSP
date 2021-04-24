@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ page import ="project.ConnectionProvider"%>
+<%@ page import ="java.sql.*"%>   	
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-
+		<%// String email = session.getAttribute("email").toString(); %>
 				
 		<div class="container">
 			<div class="navbar">
@@ -32,17 +36,13 @@
 					<ul id="MenuItems">
 						<li><a href="">Home</a></li>
 						<li><a href="">Books</a></li>
-						<li><a href="">About</a></li>
-						<li><a href="">Contact</a></li>
+						<!-- <li><a href="">About</a></li> -->
+						<!-- <li><a href="">Contact</a></li> -->
 						<li><a href="">Account</a></li>
+						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
+						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
 					</ul>
 				</nav>
-<<<<<<< Updated upstream
-				<a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a>
-=======
-				<img src="assets/cart.png" width="30px" height="30px">
-				<a href="account.jsp" class="btn-logout">Log Out</a>
->>>>>>> Stashed changes
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">
 			</div>
 	
@@ -65,9 +65,16 @@
 		</div>
 
 		<div class="row">
+			<%
+			try{
+				Connection con = ConnectionProvider.getCon();
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery("SELECT * FROM books where Active = 'Yes'");
+				while(rs.next()){
+			%>
 			<div class="col-4">
-				<img src="assets/product-1.jpg">
-				<h4>LSAT Unlocked 2018-19</h4>
+				<img src="<%=rs.getBlob(10)%>">
+				<a href=""><h4><%=rs.getString(2)%></h4></a>
 				<div class="rating">
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star"></i>
@@ -75,9 +82,15 @@
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star-o"></i>
 				</div>
-				<p>$50.00</p>
+				<p>$<%=rs.getString(8) %></p>
 			</div>
-			<div class="col-4">
+			<%}
+			}
+			catch(Exception e){
+				System.out.println(e);
+			}
+			%>
+			<!--<div class="col-4">
 				<img src="assets/product-2.jfif">
 				<h4>CISF Head Constable</h4>
 				<div class="rating">
@@ -214,7 +227,7 @@
 					<i class="fa fa-star-o"></i>
 				</div>
 				<p>$110.00</p>
-			</div>
+			</div>-->
 		</div>
 
 		<div class="page-btn">
