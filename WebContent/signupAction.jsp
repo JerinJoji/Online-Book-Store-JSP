@@ -32,10 +32,10 @@ try{
 	ps.setString(11, password);
 	ps.executeUpdate();
 	System.out.println("Registered");
-	response.sendRedirect("index.jsp");
+	response.sendRedirect("products.jsp");
 }
 catch(Exception e){
 	System.out.println(e);
-	response.sendRedirect("account.jsp");
+	response.sendRedirect("account.jsp?rmsg=invalid");
 }
 %>

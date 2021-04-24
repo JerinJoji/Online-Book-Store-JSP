@@ -49,25 +49,42 @@
 							<hr id="Indicator">
 						</div>
 
-						<form id="LoginForm">
-							<input type="email" placeholder="Email">
-							<input type="password" placeholder="Password">
+						<form id="LoginForm" action="loginAction.jsp" method="post">
+							<input type="email" name="loginemail" placeholder="Email">
+							<input type="password" name="loginpassword" placeholder="Password">
 							<button type="submit" class="btn">Login</button>
+							<%
+							String msg = request.getParameter("msg");
+							if("notexist".equals(msg)){
+							%>
+							<p style="color:red">Incorrect Username and Password</p>
+							<%}
+							if("invalid".equals(msg))
+							{
+							%>
+							<p style="color:red">Something Went Wrong</p>
+							<%}%>
 							<a href="">Forgot password</a>
 						</form>
 
 						<form id="RegForm" action="signupAction.jsp" method="post">
-							<input type="text" name = "fname" placeholder="FirstName">
-							<input type="text" name = "lname" placeholder="LastName">
+							<input type="text" name = "fname" placeholder="FirstName" required>
+							<input type="text" name = "lname" placeholder="LastName"required>
 							<input type="text" name = "house" placeholder="House/Building">
 							<input type="text" name = "street" placeholder="StreetName">
 							<input type="text" name = "location" placeholder="Location">
-							<input type="number" name = "pincode" placeholder="Pincode">
-							<input type="text" name = "city" placeholder="City">
-							<input type="text" name = "state" placeholder="State">
-							<input type="email" name = "email" placeholder="Email">
-							<input type="number" name = "phone" placeholder="PhoneNumber">
-							<input type="password" name = "password" placeholder="Password">
+							<input type="number" name = "pincode" placeholder="Pincode"required>
+							<input type="text" name = "city" placeholder="City"required>
+							<input type="text" name = "state" placeholder="State"required>
+							<input type="email" name = "email" placeholder="Email"required>
+							<input type="number" name = "phone" placeholder="PhoneNumber"required>
+							<input type="password" name = "password" placeholder="Password"required>
+							<%
+							String rmsg = request.getParameter("rmsg");
+							if("invalid".equals(rmsg)){
+							%>
+							<p style="color:red">Something Went Wrong</p>
+							<%} %>
 							<button type="submit" class="btn">Register</button>
 						</form>
 					</div>	
