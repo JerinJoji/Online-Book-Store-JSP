@@ -23,21 +23,18 @@
 				</div>
 				<!-- Search Bar -->	
 				<div class="container-search">
+				<form action="searchproduct.jsp" method="post">
 					<div class="search-box">
-					<form>
-						<input type="text" class="search" placeholder="What are you looking for?">
+						<input type="text" name="search" class="search" placeholder="What are you looking for?">
 						<button type="submit" class="search-btn">
 						<i class="fa fa-search"></i>
 						</button>
-					</form>
 					</div>
+				</form>
 				</div>
 				<nav>
 					<ul id="MenuItems">
 						<li><a href="">Home</a></li>
-						<li><a href="">Books</a></li>
-						<!-- <li><a href="">About</a></li> -->
-						<!-- <li><a href="">Contact</a></li> -->
 						<li><a href="">Account</a></li>
 						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
 						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
@@ -71,10 +68,11 @@
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery("SELECT * FROM books where Active = 'Yes'");
 				while(rs.next()){
+					
 			%>
 			<div class="col-4">
 				<img src="<%=rs.getBlob(10)%>">
-				<a href=""><h4><%=rs.getString(2)%></h4></a>
+				<a href="productdetails.jsp?id=<%=rs.getString(1)%>"><h4><%=rs.getString(2)%></h4></a>
 				<div class="rating">
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star"></i>
@@ -82,7 +80,7 @@
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star-o"></i>
 				</div>
-				<p>$<%=rs.getString(8) %></p>
+				<p>&#8377;<%=rs.getString(8) %></p>
 			</div>
 			<%}
 			}
@@ -90,145 +88,6 @@
 				System.out.println(e);
 			}
 			%>
-			<!--<div class="col-4">
-				<img src="assets/product-2.jfif">
-				<h4>CISF Head Constable</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-				</div>
-				<p>$90.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-3.jfif">
-				<h4>Indian Army MER</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$75.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-4.jfif">
-				<h4>AIIMS Mock Test Papers</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$100.00</p>
-			</div>
-		</div>
-
-
-		<div class="row">
-			<div class="col-4">
-				<img src="assets/product-5.png">
-				<h4>FE Exam Preparation Book</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$30.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-6.jfif">
-				<h4>Nursing School Entrance Exams</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-				</div>
-				<p>$70.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-7.jfif">
-				<h4>State Trooper and Highway Patrol</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$65.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-8.jfif">
-				<h4>SSC Elementary and Advanced Mathematics</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$45.00</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-4">
-				<img src="assets/product-9.jfif">
-				<h4>JIPMER Medical Entrance Examination</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$120.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-10.jfif">
-				<h4>PMP Exam Prep</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-				</div>
-				<p>$57.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-11.jfif">
-				<h4>Indian Army ACC Entrance Exam</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$60.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-12.jfif">
-				<h4>Indian Army Artificer Apprentice</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$110.00</p>
-			</div>-->
-		</div>
 
 		<div class="page-btn">
 			<span>1</span>
@@ -237,6 +96,7 @@
 			<span>4</span>			
 			<span>&#8594;</span>
 		</div>
+	</div>
 	</div>
 
 

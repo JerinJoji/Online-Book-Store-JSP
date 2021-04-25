@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ page import ="project.ConnectionProvider"%>
+<%@ page import ="java.sql.*"%>   	
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-
+		<%// String email = session.getAttribute("email").toString(); %>
 				
 		<div class="container">
 			<div class="navbar">
@@ -19,23 +23,23 @@
 				</div>
 				<!-- Search Bar -->	
 				<div class="container-search">
+				<form action="searchproduct.jsp" method="post">
 					<div class="search-box">
-						<input type="text" class="search" placeholder="What are you looking for?">
+						<input type="text" name="search" class="search" placeholder="What are you looking for?">
 						<button type="submit" class="search-btn">
 						<i class="fa fa-search"></i>
 						</button>
 					</div>
+				</form>
 				</div>
 				<nav>
 					<ul id="MenuItems">
-						<li><a href="">Home</a></li>
-						<li><a href="">Books</a></li>
-						<li><a href="">About</a></li>
-						<li><a href="">Contact</a></li>
+						<li><a href="products.jsp">Home</a></li>
 						<li><a href="">Account</a></li>
+						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
+						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
 					</ul>
 				</nav>
-				<img src="assets/cart.png" width="30px" height="30px">
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">
 			</div>
 	
@@ -58,9 +62,19 @@
 		</div>
 
 		<div class="row">
+			<%
+			int flag =0;
+			try{
+				String search = request.getParameter("search");
+				Connection con = ConnectionProvider.getCon();
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery("SELECT * FROM books where BookName like '%"+search+"%' or Author like '%"+search+"%' or Publisher like '%"+search+"%' or Genre like '%"+search+"%' or Subject like '%"+search+"%' or ISBN like '%"+search+"%' and Active = 'Yes'");
+				while(rs.next()){
+					flag=1;
+			%>
 			<div class="col-4">
-				<img src="assets/product-1.jpg">
-				<h4>LSAT Unlocked 2018-19</h4>
+				<img src="<%=rs.getBlob(10)%>">
+				<a href="productdetails.jsp?id=<%=rs.getString(1)%>"><h4><%=rs.getString(2)%></h4></a>
 				<div class="rating">
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star"></i>
@@ -68,155 +82,31 @@
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star-o"></i>
 				</div>
-				<p>$50.00</p>
+				<p>&#8377;<%=rs.getString(8) %></p>
 			</div>
+			<%}
+			}
+			catch(Exception e){
+				System.out.println(e);
+			}
+			%>
+			<%
+			if(flag==0){
+			%>
 			<div class="col-4">
-				<img src="assets/product-2.jfif">
-				<h4>CISF Head Constable</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-				</div>
-				<p>$90.00</p>
+				<h1 style="text-align:center; color:red;">Book Not Found</h1>
 			</div>
-			<div class="col-4">
-				<img src="assets/product-3.jfif">
-				<h4>Indian Army MER</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$75.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-4.jfif">
-				<h4>AIIMS Mock Test Papers</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$100.00</p>
-			</div>
-		</div>
-
-
-		<div class="row">
-			<div class="col-4">
-				<img src="assets/product-5.png">
-				<h4>FE Exam Preparation Book</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$30.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-6.jfif">
-				<h4>Nursing School Entrance Exams</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-				</div>
-				<p>$70.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-7.jfif">
-				<h4>State Trooper and Highway Patrol</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$65.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-8.jfif">
-				<h4>SSC Elementary and Advanced Mathematics</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$45.00</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-4">
-				<img src="assets/product-9.jfif">
-				<h4>JIPMER Medical Entrance Examination</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$120.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-10.jfif">
-				<h4>PMP Exam Prep</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-				</div>
-				<p>$57.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-11.jfif">
-				<h4>Indian Army ACC Entrance Exam</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$60.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-12.jfif">
-				<h4>Indian Army Artificer Apprentice</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>$110.00</p>
-			</div>
-		</div>
-
-		<div class="page-btn">
+			<%
+			}
+			%>
+		<!-- <div class="page-btn">
 			<span>1</span>
 			<span>2</span>
 			<span>3</span>
 			<span>4</span>			
 			<span>&#8594;</span>
-		</div>
+		</div> -->
+	</div>
 	</div>
 
 

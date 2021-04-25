@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ page import ="project.ConnectionProvider"%>
+<%@ page import ="java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,14 +32,11 @@
 				</div>
 				<nav>
 					<ul id="MenuItems">
-						<li><a href="">Home</a></li>
-						<li><a href="">Books</a></li>
-						<li><a href="">About</a></li>
-						<li><a href="">Contact</a></li>
-						<!-- <li><a href="">Account</a></li> -->
+						<li><a href="products.jsp">Home</a></li>
+						<li><a href="">Account</a></li>
+						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
 					</ul>
 				</nav>
-				<img src="assets/cart.png" width="30px" height="30px">
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">
 			</div>
 	
@@ -45,10 +46,20 @@
 
 	<div class="small-container single-product">
 		<div class="row">
+		
+		<%
+			//String email = session.getAttribute("email").toString();
+			String product_id = request.getParameter("id");
+			try{
+				Connection con = ConnectionProvider.getCon();
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery("SELECT * FROM books where BookID="+product_id);
+				while(rs.next()){
+		%>
 			<div class="col-2">
-				<img src="assets/netbook.jpeg" width="80%" id="ProductImg">
+				<img src="<%=rs.getBlob(10) %>" width="80%" id="ProductImg">
 
-				<div class="small-img-row">
+				<!--<div class="small-img-row">
 					<div class="small-img-col">
 						<img src="assets/gallery-1.jfif" width="100%" class="small-img">
 					</div>
@@ -61,29 +72,29 @@
 					<div class="small-img-col">
 						<img src="assets/gallery-4.jpg" width="100%" class="small-img">
 					</div>
-				</div>
-
-
-
+				</div>-->
 			</div>
 			<div class="col-2">
-				<p>Home / NET-Book</p>
-				<h1>UGC NET/SET Commerce Papers by Arihant</h1>
-				<h4>$40.00</h4>
-				<select>
-					<option>Select Condition</option>
-					<option>Old</option>
-					<option>Good</option>
-					<option>Almost New</option>
-					<option>New</option>
-				</select>
+				<h1><%=rs.getString(2) %></h1>
+				<h4>&#8377;<%=rs.getString(8) %></h4>
+
 				<input type="number" value="1">
 				<a href="" class="btn">Add To Cart</a>
 
 				<h3>Product Details <i class="fa fa-indent"></i></h3>
 				<br>
-				<p>Get well prepared for your NET/SET Examination with the arihand guide. It includes Solved Papers for both Paper 1 and Paper 2 and has all important topics for the commerce part of the paper. We've got you covered.</p>
+				<p>Author 	: <%=rs.getString(3) %><br>
+				Publisher 	: <%=rs.getString(4) %><br>
+				Genre		: <%=rs.getString(5) %><br>
+				Subject		: <%=rs.getString(6) %><br>
+				ISBN		: <%=rs.getString(7) %><br>
+				</p>
 			</div>
+			<%}
+			}catch(Exception e){
+				System.out.println(e);
+			}
+			%>
 		</div>
 	</div>
 
@@ -111,7 +122,7 @@
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star-o"></i>
 				</div>
-				<p>$50.00</p>
+				<p>&#8377;50.00</p>
 			</div>
 			<div class="col-4">
 				<img src="assets/product-2.jfif">
@@ -123,7 +134,7 @@
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star-half-o"></i>
 				</div>
-				<p>$90.00</p>
+				<p>&#8377;90.00</p>
 			</div>
 			<div class="col-4">
 				<img src="assets/product-3.jfif">
@@ -135,7 +146,7 @@
 					<i class="fa fa-star-half-o"></i>
 					<i class="fa fa-star-o"></i>
 				</div>
-				<p>$75.00</p>
+				<p>&#8377;75.00</p>
 			</div>
 			<div class="col-4">
 				<img src="assets/product-4.jfif">
@@ -147,7 +158,7 @@
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star-o"></i>
 				</div>
-				<p>$100.00</p>
+				<p>&#8377;100.00</p>
 			</div>
 		</div>
 	</div>

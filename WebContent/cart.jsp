@@ -29,14 +29,11 @@
 				<nav>
 					<ul id="MenuItems">
 						<li><a href="">Home</a></li>
-						<li><a href="">Books</a></li>
-						<li><a href="">About</a></li>
-						<li><a href="">Contact</a></li>
 						<li><a href="">Account</a></li>
+						<li><a href="account.jsp" class="btn-logout">Log Out</a></li>
+						<li><img src="assets/cart.png" width="30px" height="30px"></li>
 					</ul>
 				</nav>
-				<img src="assets/cart.png" width="30px" height="30px">
-				<a href="account.jsp" class="btn-logout">Log Out</a>
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">
 			</div>
 	
