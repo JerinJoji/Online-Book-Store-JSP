@@ -22,6 +22,7 @@
 					<img src="assets/logo.png" width="125px">
 				</div>
 				<!-- Search Bar -->	
+				<form action="searchproduct.jsp" method="post">
 				<div class="container-search">
 					<div class="search-box">
 						<input type="text" class="search" placeholder="What are you looking for?">
@@ -30,6 +31,7 @@
 						</button>
 					</div>
 				</div>
+				</form>
 				<nav>
 					<ul id="MenuItems">
 						<li><a href="products.jsp">Home</a></li>
@@ -48,12 +50,13 @@
 		<div class="row">
 		
 		<%
-			//String email = session.getAttribute("email").toString();
-			String product_id = request.getParameter("id");
+			String email = session.getAttribute("email").toString();
+			String cusid = session.getAttribute("CusID").toString();
+			String book_id = request.getParameter("id");
 			try{
 				Connection con = ConnectionProvider.getCon();
 				Statement st = con.createStatement();
-				ResultSet rs = st.executeQuery("SELECT * FROM books where BookID="+product_id);
+				ResultSet rs = st.executeQuery("SELECT * FROM books where BookID="+book_id);
 				while(rs.next()){
 		%>
 			<div class="col-2">
@@ -78,9 +81,18 @@
 				<h1><%=rs.getString(2) %></h1>
 				<h4>&#8377;<%=rs.getString(8) %></h4>
 
-				<input type="number" value="1">
-				<a href="" class="btn">Add To Cart</a>
-
+				<!--<input type="number" value="1"> -->
+				<%
+				Connection conn = ConnectionProvider.getCon();
+				Statement stt = conn.createStatement();
+				ResultSet rs1 = stt.executeQuery("SELECT * FROM cart where Book_ID="+book_id+" and CusID="+cusid);
+				if(rs1.next()==false){
+				%>
+				<a href="addToCart.jsp?bookid=<%= book_id %>&price=<%=rs.getString(8) %>" class="btn">Add To Cart</a>
+				<%}else{ %>
+				<a href="" class="btn" style="background-color:grey;" disabled>Added To Cart</a>
+				<%} %>
+				
 				<h3>Product Details <i class="fa fa-indent"></i></h3>
 				<br>
 				<p>Author 	: <%=rs.getString(3) %><br>

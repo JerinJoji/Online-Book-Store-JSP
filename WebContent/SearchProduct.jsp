@@ -14,8 +14,8 @@
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-		<%// String email = session.getAttribute("email").toString(); %>
-				
+		<%String email = session.getAttribute("email").toString(); %>
+		String cusid = session.getAttribute("CusID").toString();
 		<div class="container">
 			<div class="navbar">
 				<div class="logo">

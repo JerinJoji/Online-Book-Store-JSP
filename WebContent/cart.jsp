@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ page import ="project.ConnectionProvider"%>
+<%@ page import ="java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,13 +15,17 @@
 </head>
 <body>
 
-				
+		<%
+		String email = session.getAttribute("email").toString();
+		String cusid = session.getAttribute("CusID").toString();
+		%>		
 		<div class="container">
 			<div class="navbar">
 				<div class="logo">
 					<img src="assets/logo.png" width="125px">
 				</div>
 				<!-- Search Bar -->	
+				<form action="searchproduct.jsp" method="post">
 				<div class="container-search">
 					<div class="search-box">
 						<input type="text" class="search" placeholder="What are you looking for?">
@@ -26,9 +34,10 @@
 						</button>
 					</div>
 				</div>
+				</form>
 				<nav>
 					<ul id="MenuItems">
-						<li><a href="">Home</a></li>
+						<li><a href="products.jsp">Home</a></li>
 						<li><a href="">Account</a></li>
 						<li><a href="account.jsp" class="btn-logout">Log Out</a></li>
 						<li><img src="assets/cart.png" width="30px" height="30px"></li>
@@ -49,77 +58,56 @@
 				<th>Quantity</th>
 				<th>Subtotal</th>
 			</tr>
+			<%
+				try{
+					Connection con = ConnectionProvider.getCon();
+					Statement st = con.createStatement();
+					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid);
+					while(rs.next()){
+						String bookid = rs.getString(2);
+			%>
 			<tr>
+				<%
+				Connection conn = ConnectionProvider.getCon();
+				Statement stt = conn.createStatement();
+				ResultSet rs1 = stt.executeQuery("SELECT * FROM books where BookID ="+bookid);
+				while(rs1.next()){
+				%>
 				<td>
 					<div class="cart-info">
-						<img src="assets/netbook.jpeg">
+						<img src="<%=rs1.getBlob(10) %>">
 						<div>
-							<p>UGC NET Commerce</p>
-							<small>Price: $50.00</small>
+							<p><%=rs1.getString(2) %></p>
+							<small>Price:&#8377;<%=rs1.getString(8) %> </small>
 							<br>
-							<a href="">Remove</a>
+							<a href="removefromcart.jsp?bookid=<%= rs1.getString(1) %>">Remove</a>
 						</div>
 					</div>
 				</td>
 				<td><input type="number" value="1"></td>
-				<td>$50.00</td>
+				<td>&#8377;<%=rs.getString(4) %></td>
+				<%} %>
 			</tr>
-			<tr>
-				<th>Product</th>
-				<th>Quantity</th>
-				<th>Subtotal</th>
-			</tr>
-			<tr>
-				<td>
-					<div class="cart-info">
-						<img src="assets/gallery-2.jpg">
-						<div>
-							<p>Arihant NET Commerce</p>
-							<small>Price: $87.00</small>
-							<br>
-							<a href="">Remove</a>
-						</div>
-					</div>
-				</td>
-				<td><input type="number" value="1"></td>
-				<td>$87.00</td>
-			</tr>
-			<tr>
-				<th>Product</th>
-				<th>Quantity</th>
-				<th>Subtotal</th>
-			</tr>
-			<tr>
-				<td>
-					<div class="cart-info">
-						<img src="assets/gallery-3.jpg">
-						<div>
-							<p>Human Rights Book</p>
-							<small>Price: $100.00</small>
-							<br>
-							<a href="">Remove</a>
-						</div>
-					</div>
-				</td>
-				<td><input type="number" value="1"></td>
-				<td>$100.00</td>
-			</tr>
+			<%}
+					}catch(Exception e){
+				System.out.println(e);
+			}%>
 		</table>
 
 		<div class="total-price">
-			
+		<%
+			int cart_total = 0;
+				Connection conn = ConnectionProvider.getCon();
+				Statement stt = conn.createStatement();
+				ResultSet rs2 = stt.executeQuery("SELECT * FROM cart where CusID ='"+cusid+"' and Status = 'Added to Cart'");
+				while(rs2.next()){
+					cart_total = cart_total + rs2.getInt(4);
+				}
+				%>
 			<table>
 				<tr>
-					<td>Subtotal</td>
-					<td>$200.00</td>
-				</tr>
-				<tr>
-					<td>Tax</td>
-					<td>$35.00</td>
-				</tr>
-				<tr>
 					<td>Total</td>
-					<td>$235.00</td>
+					<td><%=cart_total %></td>
 				</tr>
 			</table>
 			

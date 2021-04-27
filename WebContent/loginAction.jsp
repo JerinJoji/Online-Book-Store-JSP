@@ -20,7 +20,9 @@
 			
 			while(rs.next()){	
 				flag =1;
+				int cusID = rs.getInt(1);
 				session.setAttribute("email", loginemail);
+				session.setAttribute("CusID", cusID);
 				response.sendRedirect("products.jsp");
 			}
 			
