@@ -14,7 +14,8 @@
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-		<%String email = session.getAttribute("email").toString();
+		<%
+		String email = session.getAttribute("email").toString();
 			 String cusid = session.getAttribute("CusID").toString();
 		%>
 				
@@ -39,7 +40,7 @@
 						<li><a href="">Home</a></li>
 						<li><a href="">Account</a></li>
 						<li><a href="orders.jsp">My Orders</a></li>
-						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
+						<li><a href="logout.jsp" class="btn-logout">Logout</a></li>
 						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
 					</ul>
 				</nav>

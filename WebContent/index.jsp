@@ -12,7 +12,6 @@
 <body>
 
 	<div class="header">
-			
 		<div class="container">
 			<div class="navbar">
 				<div class="logo">
@@ -30,13 +29,11 @@
 				<nav>
 					<ul id="MenuItems">
 						<li><a href="index.jsp">Home</a></li>
-						<li><a href="products.jsp">All Books</a></li>
 						<li><a href="">About</a></li>
 						<li><a href="">Contact</a></li>
 						<!-- <li><a href="account.html">Account</a></li> -->
 					</ul>
 				</nav>
-				<a href="cart.jsp"><img src="assets/cart.png" class="cart-logo" width="30px" height="30px"></a>
 				<a href="account.jsp" class="btn-sign">Sign Up</a>
 				<a href="account.jsp" class="btn-sign">Sign In</a>
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">

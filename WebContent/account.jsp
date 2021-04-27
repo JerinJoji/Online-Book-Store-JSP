@@ -20,13 +20,10 @@
 				<nav>
 					<ul id="MenuItems">
 						<li><a href="index.jsp">Home</a></li>
-						<li><a href="products.jsp">Books</a></li>
 						<li><a href="">About</a></li>
 						<li><a href="">Contact</a></li>
-						<li><a href="">Account</a></li>
 					</ul>
 				</nav>
-				<a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a>
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">
 			</div>
 	
