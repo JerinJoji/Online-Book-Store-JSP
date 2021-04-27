@@ -70,7 +70,7 @@
 					</label>
 				</div>
 				<div class="user-admin">
-						<img src="../static/assets/user.jpg">
+						<img src="assets/user.jpg">
 				</div>
 			</div>
 
