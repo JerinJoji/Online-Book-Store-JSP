@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import ="project.ConnectionProvider"%>
-<%@ page import ="java.sql.*"%>   	
+<%@ page import ="java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,30 +14,34 @@
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-		<%String email = session.getAttribute("email").toString();
-		String cusid = session.getAttribute("CusID").toString(); %>
+
+		<%
+		String email = session.getAttribute("email").toString();
+		String cusid = session.getAttribute("CusID").toString();
+		%>		
 		<div class="container">
 			<div class="navbar">
 				<div class="logo">
 					<img src="assets/logo.png" width="125px">
 				</div>
 				<!-- Search Bar -->	
-				<div class="container-search">
 				<form action="searchproduct.jsp" method="post">
+				<div class="container-search">
 					<div class="search-box">
-						<input type="text" name="search" class="search" placeholder="What are you looking for?">
+						<input type="text" class="search" placeholder="What are you looking for?">
 						<button type="submit" class="search-btn">
 						<i class="fa fa-search"></i>
 						</button>
 					</div>
-				</form>
 				</div>
+				</form>
 				<nav>
 					<ul id="MenuItems">
 						<li><a href="products.jsp">Home</a></li>
 						<li><a href="">Account</a></li>
+						<li><a href="">My Orders</a></li>
 						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
-						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
+						<li><img src="assets/cart.png" width="30px" height="30px"></li>
 					</ul>
 				</nav>
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">
@@ -46,68 +50,96 @@
 		</div>
 
 
-
-
-	<div class="small-container">
-
-		<div class="row row-2">
-			<h2>All Products</h2>
-			<select>
-				<option>Default sorting</option>
-				<option>Sort by price</option>
-				<option>Sort by popularity</option>
-				<option>Sort by rating</option>
-				<option>Sort by sale</option>
-			</select>
-		</div>
-
-		<div class="row">
+<!----------- order items details ------------>
+	<div class="small-container cart-page">
+		<h2>Orders Placed</h2>
+		<br>
+		<table>
+			<tr>
+				<th>Product</th>
+				<th>Price</th>
+				<th>Status</th>
+			</tr>
 			<%
-			int flag =0;
-			try{
-				String search = request.getParameter("search");
-				Connection con = ConnectionProvider.getCon();
-				Statement st = con.createStatement();
-				ResultSet rs = st.executeQuery("SELECT * FROM books where BookName like '%"+search+"%' or Author like '%"+search+"%' or Publisher like '%"+search+"%' or Genre like '%"+search+"%' or Subject like '%"+search+"%' or ISBN like '%"+search+"%' and Active = 'Yes'");
-				while(rs.next()){
-					flag=1;
+				try{
+					Connection con = ConnectionProvider.getCon();
+					Statement st = con.createStatement();
+					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Order Placed'");
+					while(rs.next()){
+						String bookid = rs.getString(2);
 			%>
-			<div class="col-4">
-				<img src="<%=rs.getBlob(10)%>">
-				<a href="productdetails.jsp?id=<%=rs.getString(1)%>"><h4><%=rs.getString(2)%></h4></a>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>&#8377;<%=rs.getString(8) %></p>
-			</div>
+			<tr>
+				<%
+				Connection conn = ConnectionProvider.getCon();
+				Statement stt = conn.createStatement();
+				ResultSet rs1 = stt.executeQuery("SELECT * FROM books where BookID ="+bookid);
+				while(rs1.next()){
+				%>
+				<td>
+					<div class="cart-info">
+						<img src="<%=rs1.getBlob(10) %>">
+						<div>
+							<p><%=rs1.getString(2) %></p>
+							<br>
+						</div>
+					</div>
+				</td>
+				<td>&#8377;<%=rs.getString(4) %></td>
+				<td><%=rs.getString(5) %></td>
+				<%} %>
+			</tr>
 			<%}
-			}
-			catch(Exception e){
+					}catch(Exception e){
 				System.out.println(e);
-			}
-			%>
-			<%
-			if(flag==0){
-			%>
-			<div class="col-4">
-				<h1 style="text-align:center; color:red;">Book Not Found</h1>
-			</div>
-			<%
-			}
-			%>
-		<!-- <div class="page-btn">
-			<span>1</span>
-			<span>2</span>
-			<span>3</span>
-			<span>4</span>			
-			<span>&#8594;</span>
-		</div> -->
+			}%>
+		</table>
 	</div>
+	
+	<div class="small-container cart-page">
+		<h2>Delivered</h2>
+		<br>
+		<table>
+			<tr>
+				<th>Product</th>
+				<th>Price</th>
+				<th>Status</th>
+			</tr>
+			<%
+				try{
+					Connection con = ConnectionProvider.getCon();
+					Statement st = con.createStatement();
+					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Delivered'");
+					while(rs.next()){
+						String bookid = rs.getString(2);
+			%>
+			<tr>
+				<%
+				Connection conn = ConnectionProvider.getCon();
+				Statement stt = conn.createStatement();
+				ResultSet rs1 = stt.executeQuery("SELECT * FROM books where BookID ="+bookid);
+				while(rs1.next()){
+				%>
+				<td>
+					<div class="cart-info">
+						<img src="<%=rs1.getBlob(10) %>">
+						<div>
+							<p><%=rs1.getString(2) %></p>
+							<br>
+						</div>
+					</div>
+				</td>
+				<td>&#8377;<%=rs.getString(4) %></td>
+				<td><%=rs.getString(5) %></td>
+				<%} %>
+			</tr>
+			<%}
+					}catch(Exception e){
+				System.out.println(e);
+			}%>
+		</table>
 	</div>
+
+
 
 
 
@@ -151,6 +183,7 @@
 			<p class="copyright">Copyright 2020 - Our Store</p>
 		</div>
 	</div>
+
 <!------------------- js for toggle menu -------------------->
 	<script>
 		var MenuItems = document.getElementById("MenuItems")
@@ -168,6 +201,7 @@
 				}
 		}
 	</script>
+
 
 </body>
 </html>

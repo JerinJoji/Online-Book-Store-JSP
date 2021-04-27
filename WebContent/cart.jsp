@@ -39,7 +39,8 @@
 					<ul id="MenuItems">
 						<li><a href="products.jsp">Home</a></li>
 						<li><a href="">Account</a></li>
-						<li><a href="account.jsp" class="btn-logout">Log Out</a></li>
+						<li><a href="">My Orders</a></li>
+						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
 						<li><img src="assets/cart.png" width="30px" height="30px"></li>
 					</ul>
 				</nav>
@@ -62,7 +63,7 @@
 				try{
 					Connection con = ConnectionProvider.getCon();
 					Statement st = con.createStatement();
-					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid);
+					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Added to Cart'");
 					while(rs.next()){
 						String bookid = rs.getString(2);
 			%>
@@ -107,7 +108,11 @@
 			<table>
 				<tr>
 					<td>Total</td>
-					<td><%=cart_total %></td>
+					<td>&#8377;<%=cart_total %></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="confirmorder.jsp" class="btn">Place Order</a></td>
 				</tr>
 			</table>
 			
