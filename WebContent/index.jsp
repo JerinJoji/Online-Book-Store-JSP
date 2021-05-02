@@ -31,7 +31,6 @@
 						<li><a href="index.jsp">Home</a></li>
 						<li><a href="">About</a></li>
 						<li><a href="">Contact</a></li>
-						<!-- <li><a href="account.html">Account</a></li> -->
 					</ul>
 				</nav>
 				<a href="account.jsp" class="btn-sign">Sign Up</a>
@@ -42,7 +41,7 @@
 				<div class="col-2">
 					<h1>Books That<br>You Need!</h1>
 					<p>Success isn't always about greatness. It's about consistency. Consistent<br>hard work gains success. Greatness will come.</p>
-					<a href="" class="btn">Explore Now &#8594;</a>
+					<a href="productsindex.jsp" class="btn">Explore Now &#8594;</a>
 				</div>
 				<div class="col-2">
 					<img src="assets/img1.png">

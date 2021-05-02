@@ -14,11 +14,6 @@
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-		<%
-		String email = session.getAttribute("email").toString();
-			 String cusid = session.getAttribute("CusID").toString();
-		%>
-				
 		<div class="container">
 			<div class="navbar">
 				<div class="logo">
@@ -26,7 +21,7 @@
 				</div>
 				<!-- Search Bar -->	
 				<div class="container-search">
-				<form action="searchproduct.jsp" method="post">
+				<form action="searchproductindex.jsp" method="post">
 					<div class="search-box">
 						<input type="text" name="search" class="search" placeholder="What are you looking for?">
 						<button type="submit" class="search-btn">
@@ -37,13 +32,13 @@
 				</div>
 				<nav>
 					<ul id="MenuItems">
-						<li><a href="">Home</a></li>
-						<li><a href="">Account</a></li>
-						<li><a href="orders.jsp">My Orders</a></li>
-						<li><a href="logout.jsp" class="btn-logout">Logout</a></li>
-						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
+						<li><a href="products.jsp">Home</a></li>
+						<li><a href="">About</a></li>
+						<li><a href="">Contact</a></li>
 					</ul>
 				</nav>
+				<a href="account.jsp" class="btn-sign">Sign Up</a>
+				<a href="account.jsp" class="btn-sign">Sign In</a>
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">
 			</div>
 	
@@ -53,6 +48,7 @@
 
 
 	<div class="small-container">
+
 		<div class="row row-2">
 			<h2>All Products</h2>
 			<select>
@@ -66,16 +62,18 @@
 
 		<div class="row">
 			<%
+			int flag =0;
 			try{
+				String search = request.getParameter("search");
 				Connection con = ConnectionProvider.getCon();
 				Statement st = con.createStatement();
-				ResultSet rs = st.executeQuery("SELECT * FROM books where Active = 'Yes'");
+				ResultSet rs = st.executeQuery("SELECT * FROM books where BookName like '%"+search+"%' or Author like '%"+search+"%' or Publisher like '%"+search+"%' or Genre like '%"+search+"%' or Subject like '%"+search+"%' or ISBN like '%"+search+"%' and Active = 'Yes'");
 				while(rs.next()){
-					
+					flag=1;
 			%>
 			<div class="col-4">
 				<img src="<%=rs.getBlob(10)%>">
-				<a href="productdetails.jsp?id=<%=rs.getString(1)%>"><h4><%=rs.getString(2)%></h4></a>
+				<a href="account.jsp"><h4><%=rs.getString(2)%></h4></a>
 				<div class="rating">
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star"></i>
@@ -91,14 +89,22 @@
 				System.out.println(e);
 			}
 			%>
-
-		<div class="page-btn">
+			<%
+			if(flag==0){
+			%>
+			<div class="col-4">
+				<h1 style="text-align:center; color:red;">Book Not Found</h1>
+			</div>
+			<%
+			}
+			%>
+		<!-- <div class="page-btn">
 			<span>1</span>
 			<span>2</span>
 			<span>3</span>
 			<span>4</span>			
 			<span>&#8594;</span>
-		</div>
+		</div> -->
 	</div>
 	</div>
 
