@@ -258,6 +258,7 @@
 						<option>Yes</option>
 						<option>No</option>
 					</select>
+					<button>Add Book</button>
 				</div>
 			</form>
 		</div>
