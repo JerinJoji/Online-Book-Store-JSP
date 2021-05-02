@@ -57,8 +57,8 @@
 		<table>
 			<tr>
 				<th>Product</th>
-				<th>Price</th>
-				<th>Status</th>
+				<th>Order Date</th>
+				<th>Delivery Date</th>
 			</tr>
 			<%
 				try{
@@ -80,12 +80,14 @@
 						<img src="<%=rs1.getBlob(10) %>">
 						<div>
 							<p><%=rs1.getString(2) %></p>
+							<small>Price:&#8377;<%=rs.getString(4) %> </small>
 							<br>
+							<small>Status:<%=rs.getString(5) %></small>
 						</div>
 					</div>
 				</td>
-				<td>&#8377;<%=rs.getString(4) %></td>
-				<td><%=rs.getString(5) %></td>
+				<td><%=rs.getString(6) %></td>
+				<td><%=rs.getString(7) %></td>
 				<%} %>
 			</tr>
 			<%}
