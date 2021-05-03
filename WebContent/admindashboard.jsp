@@ -226,15 +226,22 @@
 <!---------- Form to Add New Books ----------->
 	<div class="center-admin-form1">
 		<div class="container-admin-form1">
+			<label for="" class="close-btn fas fa-times"></label>
 			<div class="text-admin-form1">Add Books</div>
 			<form action="#">
 				<div class="data-admin-form1">
 					<label>Book name</label>
-					<input type="text">
+					<input type="text" required>
+				</div>
+				<div class="data-admin-form1">
 					<label>Author</label>
-					<input type="text">
+					<input type="text" required>
+				</div>
+				<div class="data-admin-form1">
 					<label>Publisher</label>
-					<input type="text">
+					<input type="text" required>
+				</div>
+				<div class="data-admin-form1">
 					<label>Genre</label>
 					<select>
 						<option>Option 1</option>
@@ -242,6 +249,8 @@
 						<option>Option 3</option>
 						<option>Option 4</option>
 					</select>
+				</div>
+				<div class="data-admin-form1">
 					<label>Subject</label>
 					<select>
 						<option>Option 1</option>
@@ -249,16 +258,25 @@
 						<option>Option 3</option>
 						<option>Option 4</option>
 					</select>
+				</div>
+				<div class="data-admin-form1">
 					<label>ISBN</label>
-					<input type="text">
+					<input type="text" required>
+				</div>
+				<div class="data-admin-form1">
 					<label>Price</label>
-					<input type="text">
+					<input type="text" required>
+				</div>
+				<div class="data-admin-form1">
 					<label>Active</label>
 					<select>
 						<option>Yes</option>
 						<option>No</option>
 					</select>
-					<button>Add Book</button>
+				</div>
+				<div class="btn-admin-form1">
+					<div class="inner-admin-form1"></div>
+					<button type="submit">Add Book</button>
 				</div>
 			</form>
 		</div>
