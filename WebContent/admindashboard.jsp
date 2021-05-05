@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body class="body-admin">
+<input type="checkbox" id="show">
 	<div class="container-admin">
 		<div class="navigation_admin">
 			<ul>
@@ -30,7 +31,7 @@
 				<li>
 					<a href="#">
 						<span class="icon-admin"><i class="fa fa-book" aria-hidden="true"></i></span>
-						<span class="title-admin">Add/Edit Books</span>
+						<span for="show" class="title-admin show-btn">Add/Edit Books</span>
 					</a>
 				</li>
 				<li>
@@ -225,8 +226,9 @@
 
 <!---------- Form to Add New Books ----------->
 	<div class="center-admin-form1">
+		
 		<div class="container-admin-form1">
-			<label for="" class="close-btn fas fa-times"></label>
+			<label for="show" class="close-btn fa fa-times"></label>
 			<div class="text-admin-form1">Add Books</div>
 			<form action="#">
 				<div class="data-admin-form1">

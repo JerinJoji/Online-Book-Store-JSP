@@ -997,6 +997,14 @@ form a{
 }
 
 /*---------Form to Add Books--------*/
+.show-btn
+{
+	background: #fff;
+	padding: 10px 20px;
+	font-size: 20px;
+	font-weight: 500;
+	cursor: pointer;
+}
 .container-admin-form1
 {
 	position: absolute;
@@ -1006,10 +1014,15 @@ form a{
 }
 .container-admin-form1
 {
+	/* display: none; */
 	background: #fff;
 	width: 410px;
 	padding: 30px;
 	box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+#show:checked ~ .container-admin-form1
+{
+	display: block;
 }
 .container-admin-form1 .close-btn
 {
