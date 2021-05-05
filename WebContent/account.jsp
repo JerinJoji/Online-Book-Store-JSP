@@ -86,6 +86,10 @@
 							%>
 							<p style="color:red">Something Went Wrong</p>
 							<%} %>
+							<%if("exists".equals(rmsg)){
+							%>
+							<p style="color:red">Email Already Exists</p>
+							<%} %>
 							<button type="submit" class="btn">Register</button>
 						</form>
 					</div>	

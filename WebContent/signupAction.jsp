@@ -18,7 +18,13 @@ String password = request.getParameter("password");
 
 try{
 	Connection con = ConnectionProvider.getCon();
-	PreparedStatement ps = con.prepareStatement("insert into customer(FirstName,LastName,HouseBuilding,StreetName,Location,Pincode,City,State,Email,PhoneNumber,Password) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+	Statement st = con.createStatement();
+	ResultSet rs = st.executeQuery("SELECT * FROM customer where Email = '"+email+"'");
+	if(rs.next()){
+		response.sendRedirect("account.jsp?rmsg=exists");
+	}
+	else{
+	PreparedStatement ps = con.prepareStatement("insert into customer(FirstName,LastName,HouseBuilding,StreetName,Location,Pincode,City,State,Email,PhoneNumber,Password,DOJ) VALUES(?,?,?,?,?,?,?,?,?,?,?,now())");
 	ps.setString(1, firstname);
 	ps.setString(2, lastname);
 	ps.setString(3, housebuilding);
@@ -32,7 +38,12 @@ try{
 	ps.setString(11, password);
 	ps.executeUpdate();
 	System.out.println("Registered");
+	ResultSet rs1 = st.executeQuery("SELECT * FROM customer where Email = '"+email+"'");
+	rs1.next();
+	session.setAttribute("email", email);
+	session.setAttribute("CusID", rs1.getInt(1));
 	response.sendRedirect("products.jsp");
+	}
 }
 catch(Exception e){
 	System.out.println(e);

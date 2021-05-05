@@ -17,15 +17,6 @@
 				<div class="logo">
 					<a href="index.jsp"><img src="assets/logo.png" width="125px"></a>
 				</div>
-				<!-- Search Bar -->	
-				<div class="container-search">
-					<div class="search-box">
-						<input type="text" class="search" placeholder="What are you looking for?">
-						<button type="submit" class="search-btn">
-						<i class="fa fa-search"></i>
-						</button>
-					</div>
-				</div>
 				<nav>
 					<ul id="MenuItems">
 						<li><a href="index.jsp">Home</a></li>

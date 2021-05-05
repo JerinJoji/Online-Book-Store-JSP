@@ -12,6 +12,10 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script>
+		if(window.history.forward(1) != null)
+			window.history.forward(1);
+	</script>
 </head>
 <body>
 		<%
@@ -40,8 +44,8 @@
 						<li><a href="">Home</a></li>
 						<li><a href="">Account</a></li>
 						<li><a href="orders.jsp">My Orders</a></li>
-						<li><a href="logout.jsp" class="btn-logout">Logout</a></li>
 						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
+						<li><a href="logout.jsp" class="btn-logout">Logout</a></li>
 					</ul>
 				</nav>
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">

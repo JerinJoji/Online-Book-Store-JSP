@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ page import ="project.ConnectionProvider"%>
+<%@ page import ="java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,6 +65,10 @@
 			</ul>
 		</div>
 
+		<%
+			Connection con = ConnectionProvider.getCon();
+			Statement st = con.createStatement();
+		%>
 		<div class="main_admin">
 			<div class="topbar_admin">
 				<div class="toggle_admin" onclick="toggleMenu();"></div>
@@ -76,42 +84,57 @@
 			</div>
 
 			<div class="cardBox-admin">
+				<%
+				ResultSet rs = st.executeQuery("SELECT count(*) FROM customer;");
+				if(rs.next()){
+				%>
 				<div class="card-admin">
 					<div>
-						<div class="numbers-admin">1,042</div>
-						<div class="cardName-admin">Daily Views</div>
+						<div class="numbers-admin"><%= rs.getString(1) %></div>
+						<div class="cardName-admin">Number of Customers</div>
 					</div>
 					<div class="iconBox-admin">
 						<i class="fa fa-eye" aria-hidden="true"></i>
 					</div>
 				</div>
+				<%} %>
+				<%
+				ResultSet rs1 = st.executeQuery("SELECT count(*) FROM cart;");
+				if(rs1.next()){
+				%>
 				<div class="card-admin">
 					<div>
-						<div class="numbers-admin">80</div>
-						<div class="cardName-admin">Sales</div>
+						<div class="numbers-admin"><%= rs1.getString(1) %></div>
+						<div class="cardName-admin">Number of Orders</div>
 					</div>
 					<div class="iconBox-admin">
 						<i class="fa fa-shopping-cart" aria-hidden="true"></i>
 					</div>
 				</div>
+				<%} %>
 				<div class="card-admin">
 					<div>
 						<div class="numbers-admin">200</div>
-						<div class="cardName-admin">Comments</div>
+						<div class="cardName-admin">Sell Requests</div>
 					</div>
 					<div class="iconBox-admin">
 						<i class="fa fa-comment" aria-hidden="true"></i>
 					</div>
 				</div>
+				<%
+				ResultSet rs3 = st.executeQuery("SELECT sum(Price) FROM cart;");
+				if(rs3.next()){
+				%>
 				<div class="card-admin">
 					<div>
-						<div class="numbers-admin">$6,042</div>
+						<div class="numbers-admin">&#8377;<%= rs3.getString(1) %></div>
 						<div class="cardName-admin">Earning</div>
 					</div>
 					<div class="iconBox-admin">
 						<i class="fa fa-usd" aria-hidden="true"></i>
 					</div>
 				</div>
+				<%} %>
 			</div>
 
 			<div class="details-admin">
@@ -224,7 +247,7 @@
 
 	</div>
 
-<!---------- Form to Add New Books ----------->
+<!---------- Form to Add New Books----------->
 	<div class="center-admin-form1">
 		
 		<div class="container-admin-form1">
@@ -283,7 +306,6 @@
 			</form>
 		</div>
 	</div>
-
 
 	<script>
 		function toggleMenu(){
