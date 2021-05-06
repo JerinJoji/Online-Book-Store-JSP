@@ -39,9 +39,8 @@
 					<ul id="MenuItems">
 						<li><a href="products.jsp">Home</a></li>
 						<li><a href="">Account</a></li>
-						<li><a href="">My Orders</a></li>
+						<li><a href="orders.jsp">My Orders</a></li>
 						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
-						<li><img src="assets/cart.png" width="30px" height="30px"></li>
 					</ul>
 				</nav>
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">
@@ -73,10 +72,11 @@
 				Statement stt = conn.createStatement();
 				ResultSet rs1 = stt.executeQuery("SELECT * FROM books where BookID ="+bookid);
 				while(rs1.next()){
+					String filename = rs1.getString(11);
 				%>
 				<td>
 					<div class="cart-info">
-						<img src="<%=rs1.getBlob(10) %>">
+						<img src="assets/<%=filename%>">
 						<div>
 							<p><%=rs1.getString(2) %></p>
 							<small>Price:&#8377;<%=rs1.getString(8) %> </small>

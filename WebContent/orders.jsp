@@ -39,9 +39,8 @@
 					<ul id="MenuItems">
 						<li><a href="products.jsp">Home</a></li>
 						<li><a href="">Account</a></li>
-						<li><a href="">My Orders</a></li>
-						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
-						<li><img src="assets/cart.png" width="30px" height="30px"></li>
+						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
+						<li><a href="logout.jsp" class="btn-logout">Logout</a></li>
 					</ul>
 				</nav>
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">
@@ -58,7 +57,7 @@
 			<tr>
 				<th>Product</th>
 				<th>Order Date</th>
-				<th>Delivery Date</th>
+				<th>Expected Delivery Date</th>
 			</tr>
 			<%
 				try{
@@ -74,15 +73,16 @@
 				Statement stt = conn.createStatement();
 				ResultSet rs1 = stt.executeQuery("SELECT * FROM books where BookID ="+bookid);
 				while(rs1.next()){
+					String filename = rs1.getString(11);
 				%>
 				<td>
 					<div class="cart-info">
-						<img src="<%=rs1.getBlob(10) %>">
+						<img src="assets/<%=filename%>">
 						<div>
 							<p><%=rs1.getString(2) %></p>
-							<small>Price:&#8377;<%=rs.getString(4) %> </small>
+							<small>Price:  &#8377;<%=rs.getString(4) %> </small>
 							<br>
-							<small>Status:<%=rs.getString(5) %></small>
+							<small>Status:  <b><%=rs.getString(5) %></b></small>
 						</div>
 					</div>
 				</td>
@@ -97,14 +97,16 @@
 		</table>
 	</div>
 	
+	
+	<!-- Delivered  -->
 	<div class="small-container cart-page">
 		<h2>Delivered</h2>
 		<br>
 		<table>
 			<tr>
 				<th>Product</th>
-				<th>Price</th>
-				<th>Status</th>
+				<th>Delivered Date</th>
+				<th>Return</th>
 			</tr>
 			<%
 				try{
@@ -120,18 +122,20 @@
 				Statement stt = conn.createStatement();
 				ResultSet rs1 = stt.executeQuery("SELECT * FROM books where BookID ="+bookid);
 				while(rs1.next()){
+					String filename = rs1.getString(11);
 				%>
 				<td>
 					<div class="cart-info">
-						<img src="<%=rs1.getBlob(10) %>">
+						<img src="assets/<%=filename%>">
 						<div>
 							<p><%=rs1.getString(2) %></p>
+							<small>Price:  &#8377;<%=rs.getString(4) %> </small>
 							<br>
 						</div>
 					</div>
 				</td>
-				<td>&#8377;<%=rs.getString(4) %></td>
-				<td><%=rs.getString(5) %></td>
+				<td><%=rs.getString(7) %></td>
+				<td><a href="" class="btn-logout">Return</a></td>
 				<%} %>
 			</tr>
 			<%}

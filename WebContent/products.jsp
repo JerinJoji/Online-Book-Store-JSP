@@ -75,10 +75,10 @@
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery("SELECT * FROM books where Active = 'Yes'");
 				while(rs.next()){
-					
+					String filename = rs.getString(11);
 			%>
 			<div class="col-4">
-				<img src="<%=rs.getBlob(10)%>">
+				<img src="assets/<%=filename%>" width="392px" height="300px">
 				<a href="productdetails.jsp?id=<%=rs.getString(1)%>"><h4><%=rs.getString(2)%></h4></a>
 				<div class="rating">
 					<i class="fa fa-star"></i>

@@ -12,10 +12,6 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script>
-		if(window.history.forward(1) != null)
-			window.history.forward(1);
-	</script>
 </head>
 <body>
 		<%String email = session.getAttribute("email").toString();
@@ -74,10 +70,11 @@
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery("SELECT * FROM books where BookName like '%"+search+"%' or Author like '%"+search+"%' or Publisher like '%"+search+"%' or Genre like '%"+search+"%' or Subject like '%"+search+"%' or ISBN like '%"+search+"%' and Active = 'Yes'");
 				while(rs.next()){
+					String filename = rs.getString(11);
 					flag=1;
 			%>
 			<div class="col-4">
-				<img src="<%=rs.getBlob(10)%>">
+				<img src="assets/<%=filename%>" width="392px" height="300px">
 				<a href="productdetails.jsp?id=<%=rs.getString(1)%>"><h4><%=rs.getString(2)%></h4></a>
 				<div class="rating">
 					<i class="fa fa-star"></i>

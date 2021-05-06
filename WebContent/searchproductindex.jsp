@@ -69,10 +69,11 @@
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery("SELECT * FROM books where BookName like '%"+search+"%' or Author like '%"+search+"%' or Publisher like '%"+search+"%' or Genre like '%"+search+"%' or Subject like '%"+search+"%' or ISBN like '%"+search+"%' and Active = 'Yes'");
 				while(rs.next()){
+					String filename = rs.getString(11);
 					flag=1;
 			%>
 			<div class="col-4">
-				<img src="<%=rs.getBlob(10)%>">
+				<img src="assets/<%=filename%>" width="392px" height="300px">
 				<a href="account.jsp"><h4><%=rs.getString(2)%></h4></a>
 				<div class="rating">
 					<i class="fa fa-star"></i>

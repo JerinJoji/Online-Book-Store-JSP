@@ -118,7 +118,7 @@
 						<div class="cardName-admin">Sell Requests</div>
 					</div>
 					<div class="iconBox-admin">
-						<i class="fa fa-comment" aria-hidden="true"></i>
+						<i class="fa fa-paper-plane" aria-hidden="true"></i>
 					</div>
 				</div>
 				<%
@@ -131,7 +131,7 @@
 						<div class="cardName-admin">Earning</div>
 					</div>
 					<div class="iconBox-admin">
-						<i class="fa fa-usd" aria-hidden="true"></i>
+						<i class="fa fa-inr" aria-hidden="true"></i>
 					</div>
 				</div>
 				<%} %>

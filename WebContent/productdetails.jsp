@@ -60,24 +60,10 @@
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery("SELECT * FROM books where BookID="+book_id);
 				while(rs.next()){
+					String filename = rs.getString(11);
 		%>
 			<div class="col-2">
-				<img src="<%=rs.getBlob(10) %>" width="80%" id="ProductImg">
-
-				<!--<div class="small-img-row">
-					<div class="small-img-col">
-						<img src="assets/gallery-1.jfif" width="100%" class="small-img">
-					</div>
-					<div class="small-img-col">
-						<img src="assets/gallery-2.jpg" width="100%" class="small-img">
-					</div>
-					<div class="small-img-col">
-						<img src="assets/gallery-3.jpg" width="100%" class="small-img">
-					</div>
-					<div class="small-img-col">
-						<img src="assets/gallery-4.jpg" width="100%" class="small-img">
-					</div>
-				</div>-->
+				<img src="assets/<%=filename%>" width="80%" id="ProductImg">
 			</div>
 			<div class="col-2">
 				<h1><%=rs.getString(2) %></h1>
@@ -115,7 +101,7 @@
 <!--------------title--------------->
 	<div class="small-container">
 		<div class="row row-2">
-			<h2>Related Products</h2>
+			<h2>More Books</h2>
 			<p>View more</p>
 		</div>
 	</div>
@@ -126,9 +112,17 @@
 	<div class="small-container">
 
 		<div class="row">
+		<%	
+			try{
+				Connection con = ConnectionProvider.getCon();
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery("SELECT * FROM books WHERE Active='Yes' ORDER BY RAND() LIMIT 4");
+				while(rs.next()){
+					String filename = rs.getString(11);
+		%>
 			<div class="col-4">
-				<img src="assets/product-1.jpg">
-				<h4>LSAT Unlocked 2018-19</h4>
+				<img src="assets/<%=filename%>" width="392px" height="300px">
+				<a href="productdetails.jsp?id=<%=rs.getString(1)%>"><h4><%=rs.getString(2) %></h4></a>
 				<div class="rating">
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star"></i>
@@ -136,44 +130,11 @@
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star-o"></i>
 				</div>
-				<p>&#8377;50.00</p>
+				<p>&#8377;<%=rs.getString(8) %></p>
 			</div>
-			<div class="col-4">
-				<img src="assets/product-2.jfif">
-				<h4>CISF Head Constable</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-				</div>
-				<p>&#8377;90.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-3.jfif">
-				<h4>Indian Army MER</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-half-o"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>&#8377;75.00</p>
-			</div>
-			<div class="col-4">
-				<img src="assets/product-4.jfif">
-				<h4>AIIMS Mock Test Papers</h4>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
-				</div>
-				<p>&#8377;100.00</p>
-			</div>
+		<%}}catch(Exception e){
+				System.out.println(e);}
+			%>
 		</div>
 	</div>
 
