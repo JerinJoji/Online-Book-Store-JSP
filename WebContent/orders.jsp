@@ -63,7 +63,7 @@
 				try{
 					Connection con = ConnectionProvider.getCon();
 					Statement st = con.createStatement();
-					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Order Placed'");
+					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Order Confirmed'");
 					while(rs.next()){
 						String bookid = rs.getString(2);
 			%>

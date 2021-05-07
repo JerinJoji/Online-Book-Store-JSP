@@ -19,7 +19,7 @@ try{
 		System.out.println("Changed to NO");
 	}
 	System.out.println("Order Placed");
-	response.sendRedirect("products.jsp");
+	response.sendRedirect("bill.jsp");
 }catch(Exception e){
 	System.out.println(e);
 }
