@@ -64,10 +64,6 @@
 			</ul>
 		</div>
 
-		<%
-			Connection con = ConnectionProvider.getCon();
-			Statement st = con.createStatement();
-		%>
 		<div class="main_admin">
 			<div class="topbar_admin">
 				<div class="toggle_admin" onclick="toggleMenu();"></div>
@@ -83,34 +79,24 @@
 			</div>
 
 			<div class="cardBox-admin">
-				<%
-				ResultSet rs = st.executeQuery("SELECT count(*) FROM customer;");
-				if(rs.next()){
-				%>
 				<div class="card-admin">
 					<div>
-						<div class="numbers-admin"><%= rs.getString(1) %></div>
+						<div class="numbers-admin">0</div>
 						<div class="cardName-admin">Number of Customers</div>
 					</div>
 					<div class="iconBox-admin">
 						<i class="fa fa-eye" aria-hidden="true"></i>
 					</div>
 				</div>
-				<%} %>
-				<%
-				ResultSet rs1 = st.executeQuery("SELECT count(*) FROM cart;");
-				if(rs1.next()){
-				%>
 				<div class="card-admin">
 					<div>
-						<div class="numbers-admin"><%= rs1.getString(1) %></div>
+						<div class="numbers-admin">0</div>
 						<div class="cardName-admin">Number of Orders</div>
 					</div>
 					<div class="iconBox-admin">
 						<i class="fa fa-shopping-cart" aria-hidden="true"></i>
 					</div>
 				</div>
-				<%} %>
 				<div class="card-admin">
 					<div>
 						<div class="numbers-admin">200</div>
@@ -120,20 +106,16 @@
 						<i class="fa fa-paper-plane" aria-hidden="true"></i>
 					</div>
 				</div>
-				<%
-				ResultSet rs3 = st.executeQuery("SELECT sum(Price) FROM cart;");
-				if(rs3.next()){
-				%>
+
 				<div class="card-admin">
 					<div>
-						<div class="numbers-admin">&#8377;<%= rs3.getString(1) %></div>
+						<div class="numbers-admin">&#8377;0</div>
 						<div class="cardName-admin">Earning</div>
 					</div>
 					<div class="iconBox-admin">
 						<i class="fa fa-inr" aria-hidden="true"></i>
 					</div>
 				</div>
-				<%} %>
 			</div>
 
 			<div class="details-admin">
