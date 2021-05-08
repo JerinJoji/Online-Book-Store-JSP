@@ -8,6 +8,10 @@
 	<title>Admin Dashboard</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style.css">
+	<script>
+		if(window.history.forward(1) != null)
+			window.history.forward(1);
+	</script>
 </head>
 <body class="body-admin">
 	<div class="container-admin">
@@ -15,8 +19,8 @@
 			<ul>
 				<li>
 					<a href="#">
-						<span class="icon-admin"><i class="fa fa-apple" aria-hidden="true"></i></span>
-						<span class="title-admin"><h2>Brand Name</h2></span>
+						<span class="icon-admin"><i class="fa fa-book" aria-hidden="true"></i></span>
+						<span class="title-admin"><h2>PustaakShala</h2></span>
 					</a>
 				</li>
 				<li>
@@ -26,7 +30,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="#">
+					<a href="admindashboard.jsp#customers">
 						<span class="icon-admin"><i class="fa fa-users" aria-hidden="true"></i></span>
 						<span class="title-admin">Customers</span>
 					</a>
@@ -38,25 +42,25 @@
 					</a>
 				</li>
 				<li>
-					<a href="#">
+					<a href="admindashboard.jsp#recentorders">
 						<span class="icon-admin"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
-						<span class="title-admin">Help</span>
+						<span class="title-admin">Recent Orders</span>
 					</a>
 				</li>
 				<li>
-					<a href="#">
+					<a href="admindashboard.jsp#books">
 						<span class="icon-admin"><i class="fa fa-cog" aria-hidden="true"></i></span>
-						<span class="title-admin">Settings</span>
+						<span class="title-admin">Books</span>
 					</a>
 				</li>
 				<li>
-					<a href="#">
+					<a href="admindashboard.jsp#Selling">
 						<span class="icon-admin"><i class="fa fa-lock" aria-hidden="true"></i></span>
-						<span class="title-admin">Password</span>
+						<span class="title-admin">Sell Requests</span>
 					</a>
 				</li>
 				<li>
-					<a href="#">
+					<a href="logout.jsp">
 						<span class="icon-admin"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
 						<span class="title-admin">Sign Out</span>
 					</a>
@@ -65,6 +69,7 @@
 		</div>
 
 		<%
+		try{ 
 			Connection con = ConnectionProvider.getCon();
 			Statement st = con.createStatement();
 		%>
@@ -111,6 +116,7 @@
 					</div>
 				</div>
 				<%} %>
+				
 				<div class="card-admin">
 					<div>
 						<div class="numbers-admin">200</div>
@@ -121,7 +127,7 @@
 					</div>
 				</div>
 				<%
-				ResultSet rs3 = st.executeQuery("SELECT sum(Price) FROM cart;");
+				ResultSet rs3 = st.executeQuery("SELECT sum(Price) FROM cart where Status!='Returned';");
 				if(rs3.next()){
 				%>
 				<div class="card-admin">
@@ -134,10 +140,15 @@
 					</div>
 				</div>
 				<%} %>
+				<%
+				}catch(Exception e){
+					System.out.println(e);
+				}
+				%>
 			</div>
 
 			<div class="details-admin">
-				<div class="recentOrders-admin">
+				<div class="recentOrders-admin" id="recentorders">
 					<div class="cardHeader-admin">
 						<h2>Recent Orders</h2>
 						<a href="#" class="btn-admin">View All</a>
@@ -152,96 +163,85 @@
 							</tr>
 						</thead>
 						<tbody>
+						<%
+						try{
+						Connection con = ConnectionProvider.getCon();
+						Statement st = con.createStatement();
+						ResultSet rs4 = st.executeQuery("SELECT * FROM cart join books on cart.Book_ID = books.BookID where cart.Status!='Added to Cart' order by OrderDate desc;");
+						while(rs4.next()){
+							int bookid = rs4.getInt(2);
+							String status = rs4.getString(5);  
+						%>
 							<tr>
-								<td>NET 2012</td>
-								<td>$1200</td>
-								<td>Paid</td>
+								<td><%= rs4.getString(10) %></td>
+								<td>&#8377;<%= rs4.getString(4) %></td>
+								<td><%= rs4.getString(8) %></td>
+								<%
+								if("Delivered".equals(status))
+								{
+								%>
 								<td><span class="status-admin delivered">Delivered</span></td>
-							</tr>
-							<tr>
-								<td>CSS BOOK</td>
-								<td>$100</td>
-								<td>Due</td>
-								<td><span class="status-admin pending">Pending</span></td>
-							</tr>
-							<tr>
-								<td>IAS 2019</td>
-								<td>$200</td>
-								<td>Paid</td>
+								<%} %>
+								<%
+								if("Order Confirmed".equals(status))
+								{
+								%>
+								<td><span class="status-admin inprogress">Order Confirmed</span></td>
+								<%} %>
+								<%
+								if("In Progress".equals(status))
+								{
+								%>
+								<td><span class="status-admin pending">In Progress</span></td>
+								<%} %>
+								<%
+								if("Returned".equals(status))
+								{
+								%>
 								<td><span class="status-admin return">Returned</span></td>
+								<%} %>
+								<%
+								if("Returning".equals(status))
+								{
+								%>
+								<td><span class="status-admin pending">Returning</span></td>
+								<%} %>
 							</tr>
-							<tr>
-								<td>JEET 2019</td>
-								<td>$450</td>
-								<td>Paid</td>
-								<td><span class="status-admin inprogress">In Progress</span></td>
-							</tr>
-							<tr>
-								<td>NET 2012</td>
-								<td>$1200</td>
-								<td>Paid</td>
-								<td><span class="status-admin delivered">Delivered</span></td>
-							</tr>
-							<tr>
-								<td>CSS BOOK</td>
-								<td>$100</td>
-								<td>Due</td>
-								<td><span class="status-admin pending">Pending</span></td>
-							</tr>
-							<tr>
-								<td>IAS 2019</td>
-								<td>$200</td>
-								<td>Paid</td>
-								<td><span class="status-admin return">Returned</span></td>
-							</tr>
-							<tr>
-								<td>JEET 2019</td>
-								<td>$450</td>
-								<td>Paid</td>
-								<td><span class="status-admin inprogress">In Progress</span></td>
-							</tr>
-							<tr>
-								<td>SET BOOK 2012</td>
-								<td>$1200</td>
-								<td>Paid</td>
-								<td><span class="status-admin delivered">Delivered</span></td>
-							</tr>
+						<%}}catch(Exception e){
+							System.out.println(e);
+						}
+						%>
 						</tbody>
 					</table>
 				</div>
 
-				<div class="recentCustomers-admin">
+				<div class="recentCustomers-admin" id="recentcustomer">
 					<div class="cardHeader-admin">
-						<h2>Recent Customers</h2>
+						<h3>Recent Customers</h3>
 					</div>
 					<table>
 						<tbody>
+						<%
+						try{
+						Connection con = ConnectionProvider.getCon();
+						Statement st = con.createStatement();
+						ResultSet rs5 = st.executeQuery("SELECT FirstName, LastName, City, State FROM customer order by DOJ desc;");
+						while(rs5.next()){  
+						%>
 							<tr>
-								<td width="60px"><div class="imgBx-admin"><img src="assets/admin-user-img1.jpg"></div></td>
-								<td><h4>David<br><span>Italy</span></h4></td>
+								<td width="60px"><div class="imgBx-admin"><img src="assets/user.jpg"></div></td>
+								<td><h4><%= rs5.getString(1) %> <%= rs5.getString(2) %><br><span><%= rs5.getString(3) %>, <%= rs5.getString(4) %></span></h4></td>
 							</tr>
-							<tr>
-								<td width="60px"><div class="imgBx-admin"><img src="assets/admin-user-img1.jpg"></div></td>
-								<td><h4>Rock<br><span>Italy</span></h4></td>
-							</tr>
-							<tr>
-								<td width="60px"><div class="imgBx-admin"><img src="assets/admin-user-img1.jpg"></div></td>
-								<td><h4>Brad<br><span>Italy</span></h4></td>
-							</tr>
-							<tr>
-								<td width="60px"><div class="imgBx-admin"><img src="assets/admin-user-img1.jpg"></div></td>
-								<td><h4>David<br><span>Italy</span></h4></td>
-							</tr>
-							<tr>
-								<td width="60px"><div class="imgBx-admin"><img src="assets/admin-user-img1.jpg"></div></td>
-								<td><h4>David<br><span>Italy</span></h4></td>
-							</tr>
+						<%}}catch(Exception e){
+							System.out.println(e);
+						}
+						%>
 						</tbody>
 					</table>
 				</div>
 				
 				
-				<div class="recentOrders-admin">
+				<div class="recentOrders-admin" id="books">
 					<div class="cardHeader-admin">
 						<h2>Books</h2>
 						<a href="#" class="btn-admin">View All</a>
@@ -258,124 +258,46 @@
 								<td>ISBN</td>
 								<td>Price</td>
 								<td>Active</td>
-								<td>Active/Deactive</td>
+								<td>Action</td>
 							</tr>
 						</thead>
 						<tbody>
+						<%
+						try{
+						Connection con = ConnectionProvider.getCon();
+						Statement st = con.createStatement();
+						ResultSet rs6 = st.executeQuery("SELECT * FROM books");
+						while(rs6.next()){
+							String active = rs6.getString(9);
+						%>
 							<tr>
-								<td>2343</td>
-								<td>NET Book 2012</td>
-								<td>Jerin Joji</td>
-								<td>Arihant Books</td>
-								<td>Exam Preparation Guide</td>
-								<td>NET</td>
-								<td>2321321</td>
-								<td>$323</td>
-								<td>active</td>
-								<td><button>Active</button><button>Deactive</button></td>
+								<td><%= rs6.getString(1) %></td>
+								<td><%= rs6.getString(2) %></td>
+								<td><%= rs6.getString(3) %></td>
+								<td><%= rs6.getString(4) %></td>
+								<td><%= rs6.getString(5) %></td>
+								<td><%= rs6.getString(6) %></td>
+								<td><%= rs6.getString(7) %></td>
+								<td><%= rs6.getString(8) %></td>
+								<td><%= rs6.getString(9) %></td>
+								<td>
+								<%if(active.equals("No")){%>
+								<h3><a href="adminActivateBook.jsp?bookid=<%=rs6.getString(1) %>">Active</a></h3>
+								<%}else{ %>
+								<h3><a href="adminDeactivateBook.jsp?bookid=<%=rs6.getString(1) %>">Deactive</a></h3>
+								<%} %>
+								</td>
 							</tr>
-							<tr>
-								<td>2343</td>
-								<td>NET Book 2012</td>
-								<td>Jerin Joji</td>
-								<td>Arihant Books</td>
-								<td>Exam Preparation Guide</td>
-								<td>NET</td>
-								<td>2321321</td>
-								<td>$323</td>
-								<td>active</td>
-								<td><button>Active</button><button>Deactive</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>NET Book 2012</td>
-								<td>Jerin Joji</td>
-								<td>Arihant Books</td>
-								<td>Exam Preparation Guide</td>
-								<td>NET</td>
-								<td>2321321</td>
-								<td>$323</td>
-								<td>active</td>
-								<td><button>Active</button><button>Deactive</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>NET Book 2012</td>
-								<td>Jerin Joji</td>
-								<td>Arihant Books</td>
-								<td>Exam Preparation Guide</td>
-								<td>NET</td>
-								<td>2321321</td>
-								<td>$323</td>
-								<td>active</td>
-								<td><button>Active</button><button>Deactive</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>NET Book 2012</td>
-								<td>Jerin Joji</td>
-								<td>Arihant Books</td>
-								<td>Exam Preparation Guide</td>
-								<td>NET</td>
-								<td>2321321</td>
-								<td>$323</td>
-								<td>active</td>
-								<td><button>Active</button><button>Deactive</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>NET Book 2012</td>
-								<td>Jerin Joji</td>
-								<td>Arihant Books</td>
-								<td>Exam Preparation Guide</td>
-								<td>NET</td>
-								<td>2321321</td>
-								<td>$323</td>
-								<td>active</td>
-								<td><button>Active</button><button>Deactive</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>NET Book 2012</td>
-								<td>Jerin Joji</td>
-								<td>Arihant Books</td>
-								<td>Exam Preparation Guide</td>
-								<td>NET</td>
-								<td>2321321</td>
-								<td>$323</td>
-								<td>active</td>
-								<td><button>Active</button><button>Deactive</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>NET Book 2012</td>
-								<td>Jerin Joji</td>
-								<td>Arihant Books</td>
-								<td>Exam Preparation Guide</td>
-								<td>NET</td>
-								<td>2321321</td>
-								<td>$323</td>
-								<td>active</td>
-								<td><button>Active</button><button>Deactive</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>NET Book 2012</td>
-								<td>Jerin Joji</td>
-								<td>Arihant Books</td>
-								<td>Exam Preparation Guide</td>
-								<td>NET</td>
-								<td>2321321</td>
-								<td>$323</td>
-								<td>active</td>
-								<td><button>Active</button><button>Deactive</button></td>
-							</tr>
+						<%}}catch(Exception e){
+							System.out.println(e);
+						}
+						%>
 						</tbody>
 					</table>
 				</div>
 				
 				<div class="recentCustomers-admin">
-					<div class="cardHeader-admin">
+					<!--<div class="cardHeader-admin">
 						<h2>Recent Customers</h2>
 					</div>
 					<table>
@@ -401,12 +323,12 @@
 								<td><h4>David<br><span>Italy</span></h4></td>
 							</tr>
 						</tbody>
-					</table>
+					</table>-->
 				</div>
 				
-				<div class="recentOrders-admin">
+				<div class="recentOrders-admin" id="customers">
 					<div class="cardHeader-admin">
-						<h2>Customer</h2>
+						<h2>Customers</h2>
 						<a href="#" class="btn-admin">View All</a>
 					</div>
 					<table>
@@ -414,132 +336,45 @@
 							<tr>
 								<td>Customer ID</td>
 								<td>Name</td>
-								<td>Address</td>
 								<td>City</td>
 								<td>State</td>
 								<td>Email</td>
-								<td>Password</td>
 								<td>Phone</td>
 								<td>Date of Signing</td>
-								<td>Delete</td>
+								<td>Action</td>
 							</tr>
 						</thead>
 						<tbody>
+						<%
+						try{
+						Connection con = ConnectionProvider.getCon();
+						Statement st = con.createStatement();
+						ResultSet rs7 = st.executeQuery("SELECT * FROM customer");
+						while(rs7.next()){
+						%>
 							<tr>
-								<td>2343</td>
-								<td>Jagat Joy</td>
-								<td>123 Halal Colony</td>
-								<td>Jaipur</td>
-								<td>Rajasthan</td>
-								<td>hhh@gmail.com</td>
-								<td>73648</td>
-								<td>9988778787</td>
-								<td>12/12/12</td>
-								<td><button>Delete</button></td>
+								<td><%= rs7.getString(1) %></td>
+								<td><%= rs7.getString(2) %> <%= rs7.getString(3) %></td>
+								<td><%= rs7.getString(8) %></td>
+								<td><%= rs7.getString(9) %></td>
+								<td><%= rs7.getString(10) %></td>
+								<td><%= rs7.getString(11) %></td>
+								<td><%= rs7.getString(13) %></td>
+								<td>
+								<h3><a href="adminDeleteCustomer.jsp?custid=<%=rs7.getString(1) %>">Delete</a></h3>
+								</td>
 							</tr>
-							<tr>
-								<td>2343</td>
-								<td>Jagat Joy</td>
-								<td>123 Halal Colony</td>
-								<td>Jaipur</td>
-								<td>Rajasthan</td>
-								<td>hhh@gmail.com</td>
-								<td>73648</td>
-								<td>9988778787</td>
-								<td>12/12/12</td>
-								<td><button>Delete</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>Jagat Joy</td>
-								<td>123 Halal Colony</td>
-								<td>Jaipur</td>
-								<td>Rajasthan</td>
-								<td>hhh@gmail.com</td>
-								<td>73648</td>
-								<td>9988778787</td>
-								<td>12/12/12</td>
-								<td><button>Delete</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>Jagat Joy</td>
-								<td>123 Halal Colony</td>
-								<td>Jaipur</td>
-								<td>Rajasthan</td>
-								<td>hhh@gmail.com</td>
-								<td>73648</td>
-								<td>9988778787</td>
-								<td>12/12/12</td>
-								<td><button>Delete</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>Jagat Joy</td>
-								<td>123 Halal Colony</td>
-								<td>Jaipur</td>
-								<td>Rajasthan</td>
-								<td>hhh@gmail.com</td>
-								<td>73648</td>
-								<td>9988778787</td>
-								<td>12/12/12</td>
-								<td><button>Delete</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>Jagat Joy</td>
-								<td>123 Halal Colony</td>
-								<td>Jaipur</td>
-								<td>Rajasthan</td>
-								<td>hhh@gmail.com</td>
-								<td>73648</td>
-								<td>9988778787</td>
-								<td>12/12/12</td>
-								<td><button>Delete</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>Jagat Joy</td>
-								<td>123 Halal Colony</td>
-								<td>Jaipur</td>
-								<td>Rajasthan</td>
-								<td>hhh@gmail.com</td>
-								<td>73648</td>
-								<td>9988778787</td>
-								<td>12/12/12</td>
-								<td><button>Delete</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>Jagat Joy</td>
-								<td>123 Halal Colony</td>
-								<td>Jaipur</td>
-								<td>Rajasthan</td>
-								<td>hhh@gmail.com</td>
-								<td>73648</td>
-								<td>9988778787</td>
-								<td>12/12/12</td>
-								<td><button>Delete</button></td>
-							</tr>
-							<tr>
-								<td>2343</td>
-								<td>Jagat Joy</td>
-								<td>123 Halal Col.</td>
-								<td>Jaipur</td>
-								<td>Rajasthan</td>
-								<td>hhh@gmail.com</td>
-								<td>73648</td>
-								<td>9988778787</td>
-								<td>12/12/12</td>
-								<td><button>Delete</button></td>
-							</tr>
+						<%}}catch(Exception e){
+							System.out.println(e);
+						}
+						%>
 						</tbody>
 					</table>
 				</div>
 				
 				
 				<div class="recentCustomers-admin">
-					<div class="cardHeader-admin">
+					<!--<div class="cardHeader-admin">
 						<h2>Recent Customers</h2>
 					</div>
 					<table>
@@ -565,11 +400,11 @@
 								<td><h4>David<br><span>Italy</span></h4></td>
 							</tr>
 						</tbody>
-					</table>
+					</table>-->
 				</div>
 				
 				
-				<div class="recentOrders-admin">
+				<div class="recentOrders-admin" id="orders">
 					<div class="cardHeader-admin">
 						<h2>Orders</h2>
 						<a href="#" class="btn-admin">View All</a>
@@ -582,108 +417,48 @@
 								<td>Price</td>
 								<td>Order Date</td>
 								<td>Payment</td>
-								<td>Method</td>
 								<td>Status</td>
-								<td>Delivered/Returned</td>
+								<td>Action</td>
 							</tr>
 						</thead>
 						<tbody>
+						<%
+						try{
+						Connection con = ConnectionProvider.getCon();
+						Statement st = con.createStatement();
+						ResultSet rs8 = st.executeQuery("SELECT * FROM cart where Status!='Added to Cart'");
+						while(rs8.next()){
+							String status = rs8.getString(5);
+						%>
 							<tr>
-								<td>0123</td>
-								<td>23244</td>
-								<td>$343</td>
-								<td>12/2/14</td>
-								<td>Pending</td>
-								<td>Cash</td>
-								<td>Delivered</td>
-								<td><button>Delivered</button><button>Returned</button></td>
+								<td><%= rs8.getString(1) %></td>
+								<td><%= rs8.getString(2) %></td>
+								<td>&#8377;<%= rs8.getString(4) %></td>
+								<td><%= rs8.getString(6) %></td>
+								<td><%= rs8.getString(8) %></td>
+								<td><%= rs8.getString(5) %></td>
+								<td>
+								<%if(status.equals("Order Confirmed")){ %>
+								<h3><a href="adminChangetoInProgress.jsp?custid=<%=rs8.getString(1)%>&bookid=<%=rs8.getString(2)%>">In Progress</a></h3>
+								<%}
+								if(status.equals("In Progress")){ %>
+								<h3><a href="adminChangetoDeliver.jsp?custid=<%=rs8.getString(1)%>&bookid=<%=rs8.getString(2)%>">Delivered</a></h3>
+								<%}
+								if(status.equals("Returning")){ %>
+								<h3><a href="adminChangetoReturn.jsp?custid=<%=rs8.getString(1)%>&bookid=<%=rs8.getString(2)%>">Returned</a></h3>
+								<%} %>
+								</td>
 							</tr>
-							<tr>
-								<td>0123</td>
-								<td>23244</td>
-								<td>$343</td>
-								<td>12/2/14</td>
-								<td>Pending</td>
-								<td>Cash</td>
-								<td>Returned</td>
-								<td><button>Delivered</button><button>Returned</button></td>
-							</tr>
-							<tr>
-								<td>0123</td>
-								<td>23244</td>
-								<td>$343</td>
-								<td>12/2/14</td>
-								<td>Pending</td>
-								<td>Cash</td>
-								<td>Delivered</td>
-								<td><button>Delivered</button><button>Returned</button></td>
-							</tr>
-							<tr>
-								<td>0123</td>
-								<td>23244</td>
-								<td>$343</td>
-								<td>12/2/14</td>
-								<td>Pending</td>
-								<td>Cash</td>
-								<td>Returned</td>
-								<td><button>Delivered</button><button>Returned</button></td>
-							</tr>
-							<tr>
-								<td>0123</td>
-								<td>23244</td>
-								<td>$343</td>
-								<td>12/2/14</td>
-								<td>Pending</td>
-								<td>Cash</td>
-								<td>Delivered</td>
-								<td><button>Delivered</button><button>Returned</button></td>
-							</tr>
-							<tr>
-								<td>0123</td>
-								<td>23244</td>
-								<td>$343</td>
-								<td>12/2/14</td>
-								<td>Pending</td>
-								<td>Cash</td>
-								<td>Returned</td>
-								<td><button>Delivered</button><button>Returned</button></td>
-							</tr>
-							<tr>
-								<td>0123</td>
-								<td>23244</td>
-								<td>$343</td>
-								<td>12/2/14</td>
-								<td>Pending</td>
-								<td>Cash</td>
-								<td>Delivered</td>
-								<td><button>Delivered</button><button>Returned</button></td>
-							</tr>
-							<tr>
-								<td>0123</td>
-								<td>23244</td>
-								<td>$343</td>
-								<td>12/2/14</td>
-								<td>Pending</td>
-								<td>Cash</td>
-								<td>Returned</td>
-								<td><button>Delivered</button><button>Returned</button></td>
-							</tr>
-							<tr>
-								<td>0123</td>
-								<td>23244</td>
-								<td>$343</td>
-								<td>12/2/14</td>
-								<td>Pending</td>
-								<td>Cash</td>
-								<td>Returned</td>
-								<td><button>Delivered</button><button>Returned</button></td>
-							</tr>
+						<%}}catch(Exception e){
+							System.out.println(e);
+						}
+						%>
 						</tbody>
 					</table>
 				</div>
 				
 				<div class="recentCustomers-admin">
-					<div class="cardHeader-admin">
+					<!--<div class="cardHeader-admin">
 						<h2>Recent Customers</h2>
 					</div>
 					<table>
@@ -709,10 +484,10 @@
 								<td><h4>David<br><span>Italy</span></h4></td>
 							</tr>
 						</tbody>
-					</table>
+					</table>-->
 				</div>
 				
-				<div class="recentOrders-admin">
+				<div class="recentOrders-admin" id="Selling">
 					<div class="cardHeader-admin">
 						<h2>Selling Requests</h2>
 						<a href="#" class="btn-admin">View All</a>
@@ -824,13 +599,8 @@
 						</tbody>
 					</table>
 				</div>
-				
-				
 			</div>
-
-
 		</div>
-
 	</div>
 
 <!---------- Form to Add New Books----------->

@@ -63,7 +63,7 @@
 				try{
 					Connection con = ConnectionProvider.getCon();
 					Statement st = con.createStatement();
-					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Order Confirmed'");
+					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Order Confirmed' or Status='In Progress' ");
 					while(rs.next()){
 						String bookid = rs.getString(2);
 			%>
@@ -112,9 +112,10 @@
 				try{
 					Connection con = ConnectionProvider.getCon();
 					Statement st = con.createStatement();
-					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Delivered'");
+					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Delivered' or Status='Returning' or Status='Returned'");
 					while(rs.next()){
 						String bookid = rs.getString(2);
+						String status = rs.getString(5);
 			%>
 			<tr>
 				<%
@@ -135,7 +136,19 @@
 					</div>
 				</td>
 				<td><%=rs.getString(7) %></td>
-				<td><a href="" class="btn-logout">Return</a></td>
+				<td>
+				<%if(status.equals("Delivered")){ %>
+				<a href="changetoReturning.jsp?bookid=<%=rs1.getString(1) %>" class="btn-logout">Return</a>
+				<%}
+				if(status.equals("Returning")){ %>
+				<p>Returning</p>
+				<%}
+				if(status.equals("Returned")){ %>
+				<p>Returned</p>	
+				<% }
+				%>
+				
+				</td>
 				<%} %>
 			</tr>
 			<%}
