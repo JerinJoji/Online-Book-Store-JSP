@@ -2,9 +2,14 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import ="project.ConnectionProvider"%>
 <%@ page import ="java.sql.*"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashSet"%>
+<%@page import="java.util.Random"%>
+
 <!DOCTYPE html>
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Admin Dashboard</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style.css">
@@ -610,48 +615,54 @@
 		<div class="container-admin-form1">
 			<label for="show" class="close-btn fa fa-times"></label>
 			<div class="text-admin-form1">Add Books</div>
-			<form action="#">
+			<form action="AdminAddBooks" method="post" enctype="multipart/form-data">
 				<div class="data-admin-form1">
 					<label>Book name</label>
-					<input type="text" required>
+					<input type="text" name="bookname" required>
 				</div>
 				<div class="data-admin-form1">
-					<label>Author</label>
-					<input type="text" required>
+					<label>Book Author</label>
+					<input type="text" name="bookauthor" required>
 				</div>
 				<div class="data-admin-form1">
-					<label>Publisher</label>
-					<input type="text" required>
+					<label>Book Publisher</label>
+					<input type="text" name="bookpublisher" required>
 				</div>
 				<div class="data-admin-form1">
-					<label>Genre</label>
-					<select>
-						<option>Option 1</option>
-						<option>Option 2</option>
-						<option>Option 3</option>
-						<option>Option 4</option>
+					<label>Book Genre</label>
+					<select name = "bookgenre">
+						<option>Examination</option>
+						<option>Guide Book</option>
+						<option>Question Paper Set</option>
 					</select>
 				</div>
 				<div class="data-admin-form1">
-					<label>Subject</label>
-					<select>
-						<option>Option 1</option>
-						<option>Option 2</option>
-						<option>Option 3</option>
-						<option>Option 4</option>
+					<label>Book Subject</label>
+					<select name="booksubject">
+						<option>Railway</option>
+						<option>Defence</option>
+						<option>Government</option>
+						<option>Medical</option>
+						<option>Education</option>
+						<option>Law</option>
+						<option>Engineering</option>
 					</select>
 				</div>
 				<div class="data-admin-form1">
-					<label>ISBN</label>
-					<input type="text" required>
+					<label>Book ISBN Number</label>
+					<input type="text" name="bookisbn" required>
 				</div>
 				<div class="data-admin-form1">
-					<label>Price</label>
-					<input type="text" required>
+					<label>Book Price</label>
+					<input type="text" name="bookprice" required>
 				</div>
 				<div class="data-admin-form1">
-					<label>Active</label>
-					<select>
+					<label>Book Image</label>
+					<input type="file" name="bookimage" required>
+				</div>
+				<div class="data-admin-form1">
+					<label>Book Display Active</label>
+					<select name="bookactive">
 						<option>Yes</option>
 						<option>No</option>
 					</select>
@@ -664,11 +675,6 @@
 		</div>
 	</div>
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 911a21f80bf47f45beb5d12f8fc1a127a84b2e15
 	<script>
 		function toggleMenu(){
 			let toggle_admin = document.querySelector('.toggle_admin');
