@@ -73,7 +73,7 @@
 				Statement stt = conn.createStatement();
 				ResultSet rs1 = stt.executeQuery("SELECT * FROM books where BookID ="+bookid);
 				while(rs1.next()){
-					String filename = rs1.getString(11);
+					String filename = rs1.getString(10);
 				%>
 				<td>
 					<div class="cart-info">
@@ -123,7 +123,7 @@
 				Statement stt = conn.createStatement();
 				ResultSet rs1 = stt.executeQuery("SELECT * FROM books where BookID ="+bookid);
 				while(rs1.next()){
-					String filename = rs1.getString(11);
+					String filename = rs1.getString(10);
 				%>
 				<td>
 					<div class="cart-info">

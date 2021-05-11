@@ -650,11 +650,11 @@
 				</div>
 				<div class="data-admin-form1">
 					<label>Book ISBN Number</label>
-					<input type="text" name="bookisbn" required>
+					<input type="number" name="bookisbn" maxlength="10" required>
 				</div>
 				<div class="data-admin-form1">
 					<label>Book Price</label>
-					<input type="text" name="bookprice" required>
+					<input type="number" name="bookprice" required>
 				</div>
 				<div class="data-admin-form1">
 					<label>Book Image</label>

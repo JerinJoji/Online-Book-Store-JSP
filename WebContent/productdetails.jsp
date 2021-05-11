@@ -60,7 +60,7 @@
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery("SELECT * FROM books where BookID="+book_id);
 				while(rs.next()){
-					String filename = rs.getString(11);
+					String filename = rs.getString(10);
 		%>
 			<div class="col-2">
 				<img src="assets/<%=filename%>" width="80%" id="ProductImg">
