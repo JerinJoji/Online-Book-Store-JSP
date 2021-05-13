@@ -48,8 +48,9 @@
 
 
 	<div class="small-container">
-			<h3>Selling Request</h3>
-			<p>Fill the form below with the book details.</p>
+		<!-- <div class="row row-2"> -->
+			<h2>All Products</h2>
+			
 				<div class="container-selling-form">
 					<div class="title">Book Selling Form</div>
 					<form action="#">
@@ -96,7 +97,6 @@
 			
 			
 		</div>
-
 
 
 <!--------------- footer ---------------->
