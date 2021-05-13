@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Book Selling Request | PustaakShala</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -48,51 +49,84 @@
 
 
 	<div class="small-container">
-		<!-- <div class="row row-2"> -->
-			<h2>All Products</h2>
-			
-				<div class="container-selling-form">
-					<div class="title">Book Selling Form</div>
-					<form action="#">
-						<div class="selling-details">
-							<div class="selling-input-box">
-								<span class="sell-details">Book Name</span>
-								<input type="text" placeholder="Enter the Title" required>
+			<h2>Checkout Form</h2>
+			<div class="checkout-row">
+				<div class="checkout-col-75">
+					<div class="checkout-container">
+						<form action="#">
+							
+							<div class="checkout-row">
+								<div class="checkout-col-58">
+									<h3>Billing Address</h3>
+									<label for="fname"><i class="fa fa-user"></i>Full Name</label>
+									<input type="text" id="" name="" placeholder="Jibin James">
+										
+									<label for="email"><i class="fa fa-envelope"></i>Email</label>
+									<input type="text" id="" name="" placeholder="jibinjames@gmail.com">
+										
+									<label for="adr"><i class="fa fa-address-card-o"></i>Address</label>
+									<input type="text" id="" name="" placeholder="233B Mayur Vihar">
+										
+									<label for="city"><i class="fa fa-institution"></i>City</label>
+									<input type="text" id="" name="" placeholder="Jaipur">
+									<div class="checkout-row">
+										<div class="checkout-col-50">
+											<label for="state">State</label>
+											<input type="text" id="state" name="" placeholder="PP">
+										</div>
+										<div class="checkout-col-50">
+											<label for="zip">Zip</label>
+											<input type="text" id="zip" name="" placeholder="121821">
+										</div>
+									</div>							
+								</div>
+								
+								<div class="checkout-col-50">
+									<h3>Payment</h3>
+									<label for="fname">Accepted Card</label>
+									<div class="checkout-icon-container">
+										<i class="fa fa-cc-visa" style="color: navy;"></i>
+										<i class="fa fa-cc-amex" style="color: blue;"></i>
+										<i class="fa fa-cc-mastercard" style="color: red;"></i>
+										<i class="fa fa-cc-discover" style="color: orange;"></i>
+									</div>
+									<label for="cname">Name on Card</label>
+									<input type="text" id="cname" name="" placeholder="Jibin James">
+									
+									<label for="ccnum">Credit Card</label>
+									<input type="text" id="ccnum" name="" placeholder="1111-2222-3333-4444">
+									
+									<label for="expmonth">Exp Month</label>
+									<input type="text" id="expmonth" name="" placeholder="September">
+									<div class=="checkout-row">
+										<div class="checkout-col-50">
+											<label for="expyear">Exp Year</label>
+											<input type="text" id="expyear" name="" placeholder="2022">
+										</div>
+										<div class="checkout-col-50">
+											<label for="cvv">CVV</label>
+											<input type="text" id="cvv" name="" placeholder="345">
+										</div>
+									</div>
+								</div>
+								<label><input type="checkbox" checked="checked" name="">Shipping address same as billing</label>
+								<input type="submit" value="Continue to checkout" class="checkout-button">
+
+								
 							</div>
-							<div class="selling-input-box">
-								<span class="sell-details">Author</span>
-								<input type="text" placeholder="Enter the Author Name" required>
-							</div>
-							<div class="selling-input-box">
-								<span class="sell-details">Publisher</span>
-								<input type="text" placeholder="Enter the Publisher Name" required>
-							</div>
-							<div class="selling-input-box">
-								<span class="sell-details">Genre</span>
-								<input type="text" placeholder="Enter the Genre" required>
-							</div>
-							<div class="selling-input-box">
-								<span class="sell-details">Subject</span>
-								<input type="text" placeholder="Enter the Subject" required>
-							</div>
-							<div class="selling-input-box">
-								<span class="sell-details">ISBN</span>
-								<input type="text" placeholder="Enter the ISBN Number" required>
-							</div>
-							<div class="selling-input-box">
-								<span class="sell-details">Expected Price</span>
-								<input type="text" placeholder="Enter the Expected Price" required>
-							</div>
-							<div class="selling-input-box">
-								<span class="sell-details">Upload Image</span>
-								<input type="file" id="" name="" required>
-							</div>
-							<div class="selling-button">
-								<input type="submit" value="Send Request">
-							</div>
-						</div>
-					</form>
+						</form>
+					</div>
 				</div>
+				<!-- <div class="checkout-col-25">
+					<h4>Card<span class="price" style="color: black"><i class="fa fa-shopping-cart"></i><b>4</b></span></h4>
+					<p><a href="#">Book 1</a><span class="price">$233</span></p>
+					<p><a href="#">Book 2</a><span class="price">$100</span></p>
+					<p><a href="#">Book 3</a><span class="price">$300</span></p>
+					<p><a href="#">Book 4</a><span class="price">$430</span></p>
+					<hr>
+					<p>Total <span class="price" style="color: black"><b>$2442</b></span></p>
+				</div> -->
+			</div>
 			
 			
 			

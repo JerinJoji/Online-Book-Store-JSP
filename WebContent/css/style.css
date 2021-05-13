@@ -1171,3 +1171,74 @@ form .selling-button input:hover{
 		width: 100%;
 	}
 }
+
+/* CSS for Payment/Checkout page */
+.checkout-row{
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	margin: 0 -10px;
+}
+.checkout-col-25{
+	-ms-flex: 25%;
+	flex: 25%;
+}
+.checkout-col-50{
+	-ms-flex:50%;
+	flex: 50%;
+}
+.checkout-col-75{
+	-ms-flex:75%;
+	flex: 75%;
+}
+.checkout-col-25,.checkout-col-50,.checkout-col-75{
+	padding: 0 16px;
+}
+.checkout-container{
+	background-color: #cfcccc85;
+	padding: 3px 18px 13px 18px;
+	border: 1px solid lightgrey;
+	border-radius: 3px;
+}
+.checkout-row input[type=text]{
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+.checkout-row label{
+	margin-bottom: 10px;
+	display: block;
+}
+.checkout-icon-container{
+	margin-bottom: 20px;
+	padding: 7px 0;
+	font-size: 24px;
+}
+.checkout-button{
+	background-color: #4CAF50;
+	color: white;
+	padding: 12px;
+	border: none;
+	width: 100%;
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 17px;
+	padding-bottom: 31px;
+}
+.checkout-button:hover{
+	background-color: #4CAF50;
+}
+
+/* Media Query for payment page */
+@media(max-width:800px){
+	.checkout-row{
+		flex-direction: column-reverse;
+	}
+	.checkout-col-25{
+		margin-bottom: 20px;
+	
+}
+}
