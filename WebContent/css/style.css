@@ -1106,3 +1106,67 @@ form .btn-admin-form1 button
 	letter-spacing: 1px;
 	cursor: pointer;	
 }
+
+
+/* Book Selling Form Details */
+.container-selling-form form .selling-details{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 2-px 0 12px 0;
+}
+form .selling-details .selling-input-box{
+	margin-bottom: 15px;
+	width: calc(100% / 2 - 20px);
+}
+.selling-details .selling-input-box .sell-details{
+	display: block;
+	font-weight: 500;
+	margin-bottom: 5px;
+}
+.selling-details .selling-input-box input{
+	height: 45px;
+	width: 100%;
+	outline: none;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	padding-left: 15px;
+	font-size: 16px;
+	transition: all 0.3s ease;
+}
+.selling-details .selling-input-box input:focus,
+.selling-details .selling-input-box input:valid{
+	border-color: #ff523b;
+}
+form .selling-button{
+	height: 45px;
+	margin: 45px 0;
+}
+form .selling-button input{
+	height: 100%;
+	width: 100%;
+	outline: none;
+	color: #fff;
+	border: none;
+	font-size: 18px;
+	font-weight: 500;
+	border-radius: 5px;
+	letter-spacing: 1px;
+	background: #ff523b;
+	transition: background 0.5s;
+}
+form .selling-button input:hover{
+	cursor: pointer;
+	background: #563434;
+}
+
+/* media query for selling form */
+@media (max-width: 584px){
+	.container-selling-form{
+		max-width: 100%;
+	}
+	form .selling-details .selling-input-box{
+		margin-bottom: 15px;
+		width: 100%;
+	}
+}
