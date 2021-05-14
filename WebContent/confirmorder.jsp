@@ -19,7 +19,7 @@ try{
 		System.out.println("Changed to NO");
 	}
 	System.out.println("Order Placed");
-	response.sendRedirect("bill.jsp");
+	response.sendRedirect("payment.jsp?paymode=Credit/Debit Card");
 }catch(Exception e){
 	System.out.println(e);
 }

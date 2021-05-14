@@ -78,7 +78,7 @@
 				%>
 				<a href="addToCart.jsp?bookid=<%= book_id %>&price=<%=rs.getString(8) %>" class="btn">Add To Cart</a>
 				<%}else{ %>
-				<a href="" class="btn" style="background-color:grey;" disabled>Added To Cart</a>
+				<a href="" class="btn" style="background-color:grey;">Added To Cart</a>
 				<%} %>
 				
 				<h3>Product Details <i class="fa fa-indent"></i></h3>

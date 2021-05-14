@@ -1,19 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import ="project.ConnectionProvider"%>
+<%@ page import ="java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Book Selling Request | PustaakShala</title>
+	<title>Payment | PustaakShala</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script>
+		if(window.history.forward(1) != null)
+			window.history.forward(1);
+	</script>
 </head>
 <body>
-
+		<%
+		String cusid = session.getAttribute("CusID").toString();
+		%>
 				
 		<div class="container">
 			<div class="navbar">
@@ -53,36 +61,47 @@
 			<div class="checkout-row">
 				<div class="checkout-col-75">
 					<div class="checkout-container">
-						<form action="#">
+						<form action="paymentUpdateMethod.jsp" method="post">
 							
 							<div class="checkout-row">
 								<div class="checkout-col-58">
-									<h3>Billing Address</h3>
-									<label for="fname"><i class="fa fa-user"></i>Full Name</label>
-									<input type="text" id="" name="" placeholder="Jibin James">
+								<%
+								try{
+									Connection con = ConnectionProvider.getCon();
+									Statement st = con.createStatement();
+									ResultSet rs = st.executeQuery("SELECT * FROM customer where CustomerId="+cusid);
+									while(rs.next()){
+								%>
+									<h3 style = "margin-bottom:20px; margin-top:15px;">Billing Address</h3>
+									<label for="fname"><i class="fa fa-user" style="margin-right:10px;"></i>Full Name</label>
+									<input type="text" id="" value="<%=rs.getString(2) %> <%=rs.getString(3) %>" disabled>
 										
-									<label for="email"><i class="fa fa-envelope"></i>Email</label>
-									<input type="text" id="" name="" placeholder="jibinjames@gmail.com">
+									<label for="email"><i class="fa fa-envelope" style="margin-right:10px;"></i>Email</label>
+									<input type="text" id="" name="" value="<%=rs.getString(10) %>" disabled>
 										
-									<label for="adr"><i class="fa fa-address-card-o"></i>Address</label>
-									<input type="text" id="" name="" placeholder="233B Mayur Vihar">
+									<label for="adr"><i class="fa fa-address-card-o" style="margin-right:10px;"></i>Address</label>
+									<input type="text" id="" name="" value="<%=rs.getString(4) %>, <%=rs.getString(5) %>, <%=rs.getString(6) %>" disabled>
 										
-									<label for="city"><i class="fa fa-institution"></i>City</label>
-									<input type="text" id="" name="" placeholder="Jaipur">
+									<label for="city"><i class="fa fa-institution" style="margin-right:10px;"></i>City</label>
+									<input type="text" id="" name="" value="<%=rs.getString(8) %>" disabled>
 									<div class="checkout-row">
 										<div class="checkout-col-50">
 											<label for="state">State</label>
-											<input type="text" id="state" name="" placeholder="PP">
+											<input type="text" id="state" name="" value="<%=rs.getString(9) %>" disabled>
 										</div>
 										<div class="checkout-col-50">
-											<label for="zip">Zip</label>
-											<input type="text" id="zip" name="" placeholder="121821">
+											<label for="zip">Pincode</label>
+											<input type="text" id="zip" name="" value="<%=rs.getString(7) %>" disabled>
 										</div>
-									</div>							
+									</div>		
+									<%}}catch(Exception e){
+										System.out.println(e);
+									}
+									%>					
 								</div>
 								
 								<div class="checkout-col-50">
-									<h3>Payment</h3>
+									<h3 style = "margin-bottom:20px; margin-top:15px;">Payment</h3>
 									<label for="fname">Accepted Card</label>
 									<div class="checkout-icon-container">
 										<i class="fa fa-cc-visa" style="color: navy;"></i>
@@ -90,42 +109,67 @@
 										<i class="fa fa-cc-mastercard" style="color: red;"></i>
 										<i class="fa fa-cc-discover" style="color: orange;"></i>
 									</div>
-									<label for="cname">Name on Card</label>
-									<input type="text" id="cname" name="" placeholder="Jibin James">
 									
-									<label for="ccnum">Credit Card</label>
-									<input type="text" id="ccnum" name="" placeholder="1111-2222-3333-4444">
+									<label>Payment Method</label>
+									<% 
+									String pay = request.getParameter("paymode"); 
+									if(pay.equals("Credit/Debit Card")){
+									%>
+									<select name="paymentmethod" onchange="OnGradeChanged(this.value);" style="margin-bottom:20px; width:50%;">
+										<option value="Credit/Debit Card" selected>Credit/Debit Card</option>
+										<option value="UPI">UPI Payment</option>
+										<option value="Cash on Delivery">Cash on Delivery</option>
+									</select>
+									
+									<label for="cname">Name on Card</label>
+									<input type="text" id="cname" required>
+									
+									<label for="ccnum">Card Number</label>
+									<input type="text" id="ccnum" pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}" required>
 									
 									<label for="expmonth">Exp Month</label>
-									<input type="text" id="expmonth" name="" placeholder="September">
+									<input type="text" id="expmonth" required>
+									
 									<div class=="checkout-row">
 										<div class="checkout-col-50">
 											<label for="expyear">Exp Year</label>
-											<input type="text" id="expyear" name="" placeholder="2022">
+											<input type="text" id="expyear" required>
 										</div>
 										<div class="checkout-col-50">
 											<label for="cvv">CVV</label>
-											<input type="text" id="cvv" name="" placeholder="345">
+											<input type="text" id="cvv" required>
 										</div>
 									</div>
+									<%}
+									if(pay.equals("UPI")){
+									%>
+									<select name="paymentmethod" onchange="OnGradeChanged(this.value);" style="margin-bottom:20px; width:50%;">
+										<option value="Credit/Debit Card">Credit/Debit Card</option>
+										<option value="UPI" selected>UPI Payment</option>
+										<option value="Cash on Delivery">Cash on Delivery</option>
+									</select>
+									
+									<label for="cname">Enter UPI ID</label>
+									<input type="text" id="cname" required>
+									<%}
+									if(pay.equals("Cash on Delivery")){
+									%>
+									<select name="paymentmethod" onchange="OnGradeChanged(this.value);" style="margin-bottom:20px; width:50%;">
+										<option value="Credit/Debit Card">Credit/Debit Card</option>
+										<option value="UPI">UPI Payment</option>
+										<option value="Cash on Delivery" selected>Cash on Delivery</option>
+									</select>
+									
+									<input type="text" value="Cash On Delivery" disabled>
+									<%} %>
 								</div>
-								<label><input type="checkbox" checked="checked" name="">Shipping address same as billing</label>
+								<!-- 
+								<label><input type="checkbox" checked="checked" name="">Shipping address same as billing</label> -->
 								<input type="submit" value="Continue to checkout" class="checkout-button">
-
-								
 							</div>
 						</form>
 					</div>
 				</div>
-				<!-- <div class="checkout-col-25">
-					<h4>Card<span class="price" style="color: black"><i class="fa fa-shopping-cart"></i><b>4</b></span></h4>
-					<p><a href="#">Book 1</a><span class="price">$233</span></p>
-					<p><a href="#">Book 2</a><span class="price">$100</span></p>
-					<p><a href="#">Book 3</a><span class="price">$300</span></p>
-					<p><a href="#">Book 4</a><span class="price">$430</span></p>
-					<hr>
-					<p>Total <span class="price" style="color: black"><b>$2442</b></span></p>
-				</div> -->
 			</div>
 			
 			
@@ -190,5 +234,10 @@
 				}
 		}
 	</script>
+	<script>
+	function OnGradeChanged(value){
+    	window.location.replace("payment.jsp?paymode="+value);
+	}
+</script>
 </body>
 </html>

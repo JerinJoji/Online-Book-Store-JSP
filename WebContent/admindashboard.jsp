@@ -47,9 +47,9 @@
 					</a>
 				</li>
 				<li>
-					<a href="admindashboard.jsp#recentorders">
+					<a href="admindashboard.jsp#orders">
 						<span class="icon-admin"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
-						<span class="title-admin">Recent Orders</span>
+						<span class="title-admin">Orders</span>
 					</a>
 				</li>
 				<li>
