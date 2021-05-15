@@ -36,9 +36,10 @@
 					<ul id="MenuItems">
 						<li><a href="products.jsp">Home</a></li>
 						<li><a href="">Account</a></li>
-						<li><a href="">My Orders</a></li>
-						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
+						<li><a href="orders.jsp">My Orders</a></li>
+						<li><a href="sellingrequest.jsp">Sell Book</a></li>
 						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
+						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
 					</ul>
 				</nav>
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">
@@ -118,7 +119,7 @@
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery("SELECT * FROM books WHERE Active='Yes' ORDER BY RAND() LIMIT 4");
 				while(rs.next()){
-					String filename = rs.getString(11);
+					String filename = rs.getString(10);
 		%>
 			<div class="col-4">
 				<img src="assets/<%=filename%>" width="392px" height="300px">

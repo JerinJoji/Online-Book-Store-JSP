@@ -75,6 +75,7 @@
 
 		<%
 		try{ 
+			int sum = 0;
 			Connection con = ConnectionProvider.getCon();
 			Statement st = con.createStatement();
 		%>
@@ -121,23 +122,28 @@
 					</div>
 				</div>
 				<%} %>
-				
+				<%
+				ResultSet rs2 = st.executeQuery("SELECT count(*) FROM sellrequest where SellStatus='Pending';");
+				if(rs2.next()){
+				%>
 				<div class="card-admin">
 					<div>
-						<div class="numbers-admin">200</div>
+						<div class="numbers-admin"><%= rs2.getInt(1) %></div>
 						<div class="cardName-admin">Sell Requests</div>
 					</div>
 					<div class="iconBox-admin">
 						<i class="fa fa-paper-plane" aria-hidden="true"></i>
 					</div>
 				</div>
+				<%} %>
 				<%
 				ResultSet rs3 = st.executeQuery("SELECT sum(Price) FROM cart where Status!='Returned';");
 				if(rs3.next()){
+					sum= rs3.getInt(1);
 				%>
 				<div class="card-admin">
 					<div>
-						<div class="numbers-admin">&#8377;<%= rs3.getString(1) %></div>
+						<div class="numbers-admin">&#8377;<%= sum %></div>
 						<div class="cardName-admin">Earning</div>
 					</div>
 					<div class="iconBox-admin">
@@ -501,106 +507,47 @@
 						<thead>
 							<tr>
 								<td>Book Name</td>
+								<td>Customer</td>
 								<td>Author</td>
-								<td>Publisher</td>
-								<td>Genre</td>
 								<td>Subject</td>
 								<td>ISBN</td>
-								<td>Expected Price</td>
-								<td>Accept/Decline</td>
+								<td>Price</td>
+								<td>Status</td>
 							</tr>
 						</thead>
 						<tbody>
+						<%
+						try{
+						Connection con = ConnectionProvider.getCon();
+						Statement st = con.createStatement();
+						ResultSet rs9 = st.executeQuery("SELECT * FROM sellrequest");
+						while(rs9.next()){
+							String status = rs9.getString(12);
+						%>
 							<tr>
-								<td>NET Book 2013</td>
-								<td>Arjun Sharma</td>
-								<td>Arihant</td>
-								<td>Solved Papers</td>
-								<td>Teaching</td>
-								<td>343243</td>
-								<td>$343</td>
-								<td><button>Accept</button><button>Decline</button></td>
+								<td><%= rs9.getString(3) %></td>
+								<td><%= rs9.getString(2) %></td>
+								<td><%= rs9.getString(4) %></td>
+								<td><%= rs9.getString(7) %></td>
+								<td><%= rs9.getString(8) %></td>
+								<td>&#8377;<%= rs9.getString(9) %></td>
+								<%
+								if(status.equals("Pending")){
+								%>
+								<td><h3><a href="adminAcceptOffer.jsp?sellid=<%=rs9.getString(1) %>">Accept</a></h3><h3><a href="adminDeclineOffer.jsp?sellid=<%=rs9.getString(1) %>">Decline</a></h3></td>
+								<%}
+								if(status.equals("Accepted")){
+								%>
+								<td></h3><h3><a href="adminSoldBookReceived.jsp?sellid=<%=rs9.getString(1) %>">Received</a></h3></td>
+								<%} 
+								else{%>
+								<td>Paid & Received</td>
+								<%} %>
 							</tr>
-							<tr>
-								<td>NET Book 2013</td>
-								<td>Arjun Sharma</td>
-								<td>Arihant</td>
-								<td>Solved Papers</td>
-								<td>Teaching</td>
-								<td>343243</td>
-								<td>$343</td>
-								<td><button>Accept</button><button>Decline</button></td>
-							</tr>
-							<tr>
-								<td>NET Book 2013</td>
-								<td>Arjun Sharma</td>
-								<td>Arihant</td>
-								<td>Solved Papers</td>
-								<td>Teaching</td>
-								<td>343243</td>
-								<td>$343</td>
-								<td><button>Accept</button><button>Decline</button></td>
-							</tr>
-							<tr>
-								<td>NET Book 2013</td>
-								<td>Arjun Sharma</td>
-								<td>Arihant</td>
-								<td>Solved Papers</td>
-								<td>Teaching</td>
-								<td>343243</td>
-								<td>$343</td>
-								<td><button>Accept</button><button>Decline</button></td>
-							</tr>
-							<tr>
-								<td>NET Book 2013</td>
-								<td>Arjun Sharma</td>
-								<td>Arihant</td>
-								<td>Solved Papers</td>
-								<td>Teaching</td>
-								<td>343243</td>
-								<td>$343</td>
-								<td><button>Accept</button><button>Decline</button></td>
-							</tr>
-							<tr>
-								<td>NET Book 2013</td>
-								<td>Arjun Sharma</td>
-								<td>Arihant</td>
-								<td>Solved Papers</td>
-								<td>Teaching</td>
-								<td>343243</td>
-								<td>$343</td>
-								<td><button>Accept</button><button>Decline</button></td>
-							</tr>
-							<tr>
-								<td>NET Book 2013</td>
-								<td>Arjun Sharma</td>
-								<td>Arihant</td>
-								<td>Solved Papers</td>
-								<td>Teaching</td>
-								<td>343243</td>
-								<td>$343</td>
-								<td><button>Accept</button><button>Decline</button></td>
-							</tr>
-							<tr>
-								<td>NET Book 2013</td>
-								<td>Arjun Sharma</td>
-								<td>Arihant</td>
-								<td>Solved Papers</td>
-								<td>Teaching</td>
-								<td>343243</td>
-								<td>$343</td>
-								<td><button>Accept</button><button>Decline</button></td>
-							</tr>
-							<tr>
-								<td>NET Book 2013</td>
-								<td>Arjun Sharma</td>
-								<td>Arihant</td>
-								<td>Solved Papers</td>
-								<td>Teaching</td>
-								<td>343243</td>
-								<td>$343</td>
-								<td><button>Accept</button><button>Decline</button></td>
-							</tr>
+						<%}}
+						catch(Exception e){
+							System.out.println(e);
+						}%>
 						</tbody>
 					</table>
 				</div>

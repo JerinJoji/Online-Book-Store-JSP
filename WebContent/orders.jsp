@@ -39,6 +39,7 @@
 					<ul id="MenuItems">
 						<li><a href="products.jsp">Home</a></li>
 						<li><a href="">Account</a></li>
+						<li><a href="sellingrequest.jsp">Sell Book</a></li>
 						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
 						<li><a href="logout.jsp" class="btn-logout">Logout</a></li>
 					</ul>
@@ -158,7 +159,41 @@
 		</table>
 	</div>
 
-
+	
+	<!-- Sold Books -->
+	<div class="small-container cart-page">
+		<h2>Sold Books</h2>
+		<br>
+		<table>
+			<tr>
+				<th>Product</th>
+				<th>Sold Price</th>
+				<th>Status</th>
+			</tr>
+			<tr>
+				<%
+				Connection conn = ConnectionProvider.getCon();
+				Statement stt = conn.createStatement();
+				ResultSet rs1 = stt.executeQuery("SELECT * FROM sellrequest where CustID ="+cusid);
+				while(rs1.next()){
+					String filename = rs1.getString(10);
+				%>
+				<td>
+					<div class="cart-info">
+						<img src="assets/<%=filename%>">
+						<div>
+							<p><%=rs1.getString(3) %></p>
+							<small>Sell ID : <%=rs1.getString(1) %></small>
+							<br>
+						</div>
+					</div>
+				</td>
+				<td>&#8377;<%=rs1.getString(9) %> </td>
+				<td><%=rs1.getString(12) %></td>
+				<%} %>
+			</tr>
+		</table>
+	</div>
 
 
 

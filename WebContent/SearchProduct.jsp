@@ -36,8 +36,10 @@
 					<ul id="MenuItems">
 						<li><a href="products.jsp">Home</a></li>
 						<li><a href="">Account</a></li>
-						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
+						<li><a href="orders.jsp">My Orders</a></li>
+						<li><a href="sellingrequest.jsp">Sell Book</a></li>
 						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
+						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
 					</ul>
 				</nav>
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">

@@ -19,8 +19,8 @@
 </head>
 <body>
 		<%
-		String email = session.getAttribute("email").toString();
-			 String cusid = session.getAttribute("CusID").toString();
+			String email = session.getAttribute("email").toString();
+			String cusid = session.getAttribute("CusID").toString();
 		%>
 				
 		<div class="container">
@@ -44,6 +44,7 @@
 						<li><a href="">Home</a></li>
 						<li><a href="">Account</a></li>
 						<li><a href="orders.jsp">My Orders</a></li>
+						<li><a href="sellingrequest.jsp">Sell Book</a></li>
 						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
 						<li><a href="logout.jsp" class="btn-logout">Logout</a></li>
 					</ul>

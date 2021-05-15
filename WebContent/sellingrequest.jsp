@@ -12,7 +12,9 @@
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-
+		<%
+		String cusid = session.getAttribute("CusID").toString();;
+		%>
 				
 		<div class="container">
 			<div class="navbar">
@@ -32,7 +34,7 @@
 				</div>
 				<nav>
 					<ul id="MenuItems">
-						<li><a href="">Home</a></li>
+						<li><a href="products.jsp">Home</a></li>
 						<li><a href="">Account</a></li>
 						<li><a href="orders.jsp">My Orders</a></li>
 						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
@@ -48,43 +50,58 @@
 
 
 	<div class="small-container">
-			<h3>Selling Request</h3>
+			<h3>Sell a Book</h3>
 			<p>Fill the form below with the book details.</p>
 				<div class="container-selling-form">
 					<div class="title">Book Selling Form</div>
-					<form action="#">
+					<form action="UserSellOffer" method="post" enctype="multipart/form-data">
 						<div class="selling-details">
+							<input type="hidden" name="cusid" value="<%= cusid %>">
+						
 							<div class="selling-input-box">
 								<span class="sell-details">Book Name</span>
-								<input type="text" placeholder="Enter the Title" required>
+								<input type="text" placeholder="Enter the Title" name="sbookname" required>
 							</div>
 							<div class="selling-input-box">
 								<span class="sell-details">Author</span>
-								<input type="text" placeholder="Enter the Author Name" required>
+								<input type="text" placeholder="Enter the Author Name" name="sbookauthor" required>
 							</div>
 							<div class="selling-input-box">
 								<span class="sell-details">Publisher</span>
-								<input type="text" placeholder="Enter the Publisher Name" required>
+								<input type="text" placeholder="Enter the Publisher Name" name="sbookpublisher" required>
 							</div>
 							<div class="selling-input-box">
 								<span class="sell-details">Genre</span>
-								<input type="text" placeholder="Enter the Genre" required>
+								<select name = "sbookgenre" required>
+									<option>Examination</option>
+									<option>Guide Book</option>
+									<option>Question Paper Set</option>
+								</select>
 							</div>
 							<div class="selling-input-box">
 								<span class="sell-details">Subject</span>
-								<input type="text" placeholder="Enter the Subject" required>
+								<select name="sbooksubject" required>
+									<option>Railway</option>
+									<option>Defence</option>
+									<option>Government</option>
+									<option>Medical</option>
+									<option>Education</option>
+									<option>Law</option>
+									<option>Engineering</option>
+									<option>Banking</option>
+								</select>
 							</div>
 							<div class="selling-input-box">
 								<span class="sell-details">ISBN</span>
-								<input type="text" placeholder="Enter the ISBN Number" required>
+								<input type="text" placeholder="Enter the ISBN Number" name="sbookisbn" required>
 							</div>
 							<div class="selling-input-box">
 								<span class="sell-details">Expected Price</span>
-								<input type="text" placeholder="Enter the Expected Price" required>
+								<input type="text" placeholder="Enter the Expected Price" name="sbookprice" required>
 							</div>
 							<div class="selling-input-box">
 								<span class="sell-details">Upload Image</span>
-								<input type="file" id="" name="" required>
+								<input type="file" id="" name="sbookimage" required>
 							</div>
 							<div class="selling-button">
 								<input type="submit" value="Send Request">

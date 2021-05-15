@@ -40,6 +40,7 @@
 						<li><a href="products.jsp">Home</a></li>
 						<li><a href="">Account</a></li>
 						<li><a href="orders.jsp">My Orders</a></li>
+						<li><a href="sellingrequest.jsp">Sell Book</a></li>
 						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
 					</ul>
 				</nav>
