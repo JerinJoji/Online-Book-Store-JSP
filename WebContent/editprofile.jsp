@@ -5,22 +5,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Books | PustaakShala</title>
+	<title>Book Selling Request | PustaakShala</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script>
-		if(window.history.forward(1) != null)
-			window.history.forward(1);
-	</script>
 </head>
 <body>
 		<%
-			//String email = session.getAttribute("email").toString();
-			String cusid = session.getAttribute("CusID").toString();
+		String cusid = session.getAttribute("CusID").toString();
 		%>
 				
 		<div class="container">
@@ -41,10 +36,9 @@
 				</div>
 				<nav>
 					<ul id="MenuItems">
-						<li><a href="">Home</a></li>
-						<li><a href="editprofile.jsp">Account</a></li>
+						<li><a href="products.jsp">Home</a></li>
+						<li><a href="">Account</a></li>
 						<li><a href="orders.jsp">My Orders</a></li>
-						<li><a href="sellingrequest.jsp">Sell Book</a></li>
 						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
 						<li><a href="logout.jsp" class="btn-logout">Logout</a></li>
 					</ul>
@@ -58,54 +52,77 @@
 
 
 	<div class="small-container">
-		<div class="row row-2">
-			<h2>All Products</h2>
-			<select>
-				<option>Default sorting</option>
-				<option>Sort by price</option>
-				<option>Sort by popularity</option>
-				<option>Sort by rating</option>
-				<option>Sort by sale</option>
-			</select>
-		</div>
-
-		<div class="row">
-			<%
-			try{
-				Connection con = ConnectionProvider.getCon();
-				Statement st = con.createStatement();
-				ResultSet rs = st.executeQuery("SELECT * FROM books where Active = 'Yes'");
-				while(rs.next()){
-					String filename = rs.getString(10);
-			%>
-			<div class="col-4">
-				<img src="assets/<%=filename%>" width="392px" height="300px">
-				<a href="productdetails.jsp?id=<%=rs.getString(1)%>"><h4><%=rs.getString(2)%></h4></a>
-				<div class="rating">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
+	<%
+	try{
+		Connection con = ConnectionProvider.getCon();
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("SELECT * FROM customer where CustomerId="+cusid);
+		while(rs.next()){
+	%>
+			<h3>Update Your Profile</h3>
+			<p>Update the form below with the your details.</p>
+				<div class="container-selling-form">
+					<div class="title">Account Update Form</div>
+					<form action="updateAccountForm.jsp" method="post">
+						<div class="selling-details">
+						
+							<div class="selling-input-box">
+								<span class="sell-details">First Name</span>
+								<input type="text" name="firstname" value="<%=rs.getString(2)%>">
+							</div>
+							<div class="selling-input-box">
+								<span class="sell-details">Last Name</span>
+								<input type="text" name="lastname" value="<%=rs.getString(3)%>">
+							</div>
+							<div class="selling-input-box">
+								<span class="sell-details">House/Building</span>
+								<input type="text" name="house" value="<%=rs.getString(4)%>">
+							</div>
+							<div class="selling-input-box">
+								<span class="sell-details">Street Name</span>
+								<input type="text" name="street" value="<%=rs.getString(5)%>">
+							</div>
+							<div class="selling-input-box">
+								<span class="sell-details">Location</span>
+								<input type="text" name="location" value="<%=rs.getString(6)%>">
+							</div>
+							<div class="selling-input-box">
+								<span class="sell-details">City</span>
+								<input type="text" name="city" value="<%=rs.getString(8)%>">
+							</div>
+							<div class="selling-input-box">
+								<span class="sell-details">State</span>
+								<input type="text" name="state" value="<%=rs.getString(9)%>">
+							</div>
+							<div class="selling-input-box">
+								<span class="sell-details">Pincode</span>
+								<input type="text" name="pincode" value="<%=rs.getString(7)%>">
+							</div>
+							<div class="selling-input-box">
+								<span class="sell-details">Email</span>
+								<input type="text" name="email" value="<%=rs.getString(10)%>">
+							</div>
+							<div class="selling-input-box">
+								<span class="sell-details">Phone Number</span>
+								<input type="text" name="phone" value="<%=rs.getString(11)%>">
+							</div>
+							<div class="selling-input-box">
+								<span class="sell-details">Password</span>
+								<input type="password" name="password" value="<%=rs.getString(12)%>">
+							</div>
+							<div class="selling-button">
+								<input type="submit" value="Update Account">
+							</div>
+						</div>
+					</form>
 				</div>
-				<p>&#8377;<%=rs.getString(8) %></p>
-			</div>
-			<%}
-			}
-			catch(Exception e){
-				System.out.println(e);
-			}
-			%>
-
-		<div class="page-btn">
-			<span>1</span>
-			<span>2</span>
-			<span>3</span>
-			<span>4</span>			
-			<span>&#8594;</span>
+		<%}
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		%>
 		</div>
-	</div>
-	</div>
 
 
 
@@ -166,6 +183,5 @@
 				}
 		}
 	</script>
-
 </body>
 </html>

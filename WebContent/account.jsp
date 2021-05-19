@@ -74,11 +74,11 @@
 							<input type="text" name = "house" placeholder="House/Building" required>
 							<input type="text" name = "street" placeholder="StreetName" required>
 							<input type="text" name = "location" placeholder="Location" required>
-							<input type="number" name = "pincode" placeholder="Pincode" pattern="^[1-9][0-9]{5}$" title="Pincode must be in Correct Format" required>
+							<input type="text" name = "pincode" placeholder="Pincode" pattern="^[1-9][0-9]{5}$" title="Pincode must be in Correct Format" required>
 							<input type="text" name = "city" placeholder="City" required>
 							<input type="text" name = "state" placeholder="State" required>
 							<input type="email" name = "email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Email must be in Correct Format" required>
-							<input type="number" name = "phone" placeholder="PhoneNumber" pattern="[789][0-9]{9}" title="All numbers and not more or less than 10 digits" required>
+							<input type="text" name = "phone" placeholder="PhoneNumber" pattern="[789][0-9]{9}" title="All numbers and not more or less than 10 digits" required>
 							<input type="password" name = "password" placeholder="Password" pattern=".{8,}" title="Eight or more characters" required>
 							<%
 							String rmsg = request.getParameter("rmsg");
