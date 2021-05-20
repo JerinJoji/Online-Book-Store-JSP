@@ -41,8 +41,8 @@
 				</div>
 				<nav>
 					<ul id="MenuItems">
-						<li><a href="">Home</a></li>
-						<li><a href="">Account</a></li>
+						<li><a href="products.jsp">Home</a></li>
+						<li><a href="editprofile.jsp">Account</a></li>
 						<li><a href="orders.jsp">My Orders</a></li>
 						<li><a href="sellingrequest.jsp">Sell Book</a></li>
 						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
@@ -123,22 +123,18 @@
 									</select>
 									
 									<label for="cname">Name on Card</label>
-									<input type="text" id="cname" required>
+									<input type="text" id="cname" pattern="[a-zA-Z]*" title="Only Letters" required>
 									
 									<label for="ccnum">Card Number</label>
-									<input type="text" id="ccnum" pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}" required>
+									<input type="text" id="ccnum" title="Only Digits and Enter the Correct Number" pattern="(^4[0-9]{12}(?:[0-9]{3})?$)|(^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$)|(3[47][0-9]{13})|(^3(?:0[0-5]|[68][0-9])[0-9]{11}$)|(^6(?:011|5[0-9]{2})[0-9]{12}$)|(^(?:2131|1800|35\d{3})\d{11}$)" required>
 									
-									<label for="expmonth">Exp Month</label>
-									<input type="text" id="expmonth" required>
+									<label for="expmonth">Expiry Month and Year</label>
+									<input type="month" id="expmonth" required>
 									
 									<div class=="checkout-row">
 										<div class="checkout-col-50">
-											<label for="expyear">Exp Year</label>
-											<input type="text" id="expyear" required>
-										</div>
-										<div class="checkout-col-50">
 											<label for="cvv">CVV</label>
-											<input type="text" id="cvv" required>
+											<input type="text" id="cvv" pattern="^[0-9]{3,4}$" title="Enter the Correct CVV" required>
 										</div>
 									</div>
 									<%}
@@ -151,7 +147,7 @@
 									</select>
 									
 									<label for="cname">Enter UPI ID</label>
-									<input type="text" id="cname" required>
+									<input type="text" id="cname" pattern="^[\w.-]+@[\w.-]+$" title="Enter UPI Correctly" required>
 									<%}
 									if(pay.equals("Cash on Delivery")){
 									%>

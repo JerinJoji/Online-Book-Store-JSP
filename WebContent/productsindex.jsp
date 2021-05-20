@@ -72,7 +72,7 @@
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery("SELECT * FROM books where Active = 'Yes'");
 				while(rs.next()){
-					String filename = rs.getString(11);
+					String filename = rs.getString(10);
 			%>
 			<div class="col-4">
 				<img src="assets/<%=filename%>" width="392px" height="300px">

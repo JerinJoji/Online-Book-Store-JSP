@@ -16,7 +16,6 @@ try{
 	ps.setString(4, price);
 	ps.setString(5, "Added to Cart");
 	ps.executeUpdate();
-	System.out.println("Added to cart");
 	response.sendRedirect("products.jsp");
 }
 catch(Exception e){

@@ -19,7 +19,6 @@
 </head>
 <body>
 		<%
-			//String email = session.getAttribute("email").toString();
 			String cusid = session.getAttribute("CusID").toString();
 		%>
 				

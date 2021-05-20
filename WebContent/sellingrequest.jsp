@@ -93,7 +93,15 @@
 							</div>
 							<div class="selling-input-box">
 								<span class="sell-details">ISBN</span>
-								<input type="text" placeholder="Enter the ISBN Number" name="sbookisbn" required>
+								<input type="text" placeholder="Enter the ISBN Number" name="sbookisbn" pattern="^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$" title="Enter Correct ISBN" required>
+							</div>
+							<div class="selling-input-box">
+								<span class="sell-details">Number of Years Used</span>
+								<input type="number" max="10" placeholder="Enter the Number of Years Used" name="syearsused" required>
+							</div>
+							<div class="selling-input-box">
+								<span class="sell-details">Book Real Price</span>
+								<input type="text" placeholder="Enter the Book Price" name="srbookprice" required>
 							</div>
 							<div class="selling-input-box">
 								<span class="sell-details">Expected Price</span>

@@ -46,6 +46,8 @@ public class UserSellOffer extends HttpServlet {
 		String sbooksubject = request.getParameter("sbooksubject");
 		String sbookisbn = request.getParameter("sbookisbn");
 		String sbookprice = request.getParameter("sbookprice");
+		String srbookprice = request.getParameter("srbookprice");
+		String syearsused = request.getParameter("syearsused");
 		
 		Part part = request.getPart("sbookimage");
 		String fileName = extractFileName(part);//file name
@@ -71,7 +73,7 @@ public class UserSellOffer extends HttpServlet {
 		
         try{
 			Connection con = ConnectionProvider.getCon();
-			PreparedStatement ps = con.prepareStatement("insert into sellrequest(CustID,SellBookName,SBookAuthor,SBookPublisher,SBookGenre,SBookSubject,SBookISBN,SBookPrice,SBookImage,SellPath,SellStatus) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into sellrequest(CustID,SellBookName,SBookAuthor,SBookPublisher,SBookGenre,SBookSubject,SBookISBN,SBookPrice,SBookImage,SellPath,SellStatus,SRBPrice,SYearsUsed) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, cusid);
 			ps.setString(2, sbookname);
 			ps.setString(3, sbookauthor);
@@ -83,9 +85,10 @@ public class UserSellOffer extends HttpServlet {
 			ps.setString(9, fileName);
 			ps.setString(10, savePath);
 			ps.setString(11, "Pending");
+			ps.setString(12, srbookprice);
+			ps.setString(13, syearsused);
 			ps.executeUpdate();
-			System.out.println("Offer pending");
-			response.sendRedirect("sellingrequest.jsp");
+			response.sendRedirect("orders.jsp");
 		}
 		catch(Exception e){
 			System.out.println(e);

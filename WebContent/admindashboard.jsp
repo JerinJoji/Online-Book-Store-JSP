@@ -12,6 +12,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Admin Dashboard</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
+	
 	<link rel="stylesheet" href="css/style.css">
 	<script>
 		if(window.history.forward(1) != null)
@@ -42,25 +49,25 @@
 				</li>
 				<li>
 					<a href="#">
-						<span class="icon-admin"><i class="fa fa-book" aria-hidden="true"></i></span>
+						<span class="icon-admin"><i class="fa fa-plus" aria-hidden="true"></i></span>
 						<label for="show"><span class="title-admin">Add/Edit Books</span></label>
 					</a>
 				</li>
 				<li>
 					<a href="admindashboard.jsp#orders">
-						<span class="icon-admin"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+						<span class="icon-admin"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
 						<span class="title-admin">Orders</span>
 					</a>
 				</li>
 				<li>
 					<a href="admindashboard.jsp#books">
-						<span class="icon-admin"><i class="fa fa-cog" aria-hidden="true"></i></span>
+						<span class="icon-admin"><i class="fa fa-book" aria-hidden="true"></i></span>
 						<span class="title-admin">Books</span>
 					</a>
 				</li>
 				<li>
 					<a href="admindashboard.jsp#Selling">
-						<span class="icon-admin"><i class="fa fa-lock" aria-hidden="true"></i></span>
+						<span class="icon-admin"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
 						<span class="title-admin">Sell Requests</span>
 					</a>
 				</li>
@@ -109,7 +116,7 @@
 				</div>
 				<%} %>
 				<%
-				ResultSet rs1 = st.executeQuery("SELECT count(*) FROM cart;");
+				ResultSet rs1 = st.executeQuery("SELECT count(*) FROM cart where Status!='Added to Cart'");
 				if(rs1.next()){
 				%>
 				<div class="card-admin">
@@ -137,7 +144,7 @@
 				</div>
 				<%} %>
 				<%
-				ResultSet rs3 = st.executeQuery("SELECT sum(Price) FROM cart where Status!='Returned';");
+				ResultSet rs3 = st.executeQuery("SELECT sum(Price) FROM cart where Status!='Added to Cart' and Status!='Returned'");
 				if(rs3.next()){
 					sum= rs3.getInt(1);
 				%>
@@ -442,21 +449,21 @@
 							String status = rs8.getString(5);
 						%>
 							<tr>
-								<td><%= rs8.getString(1) %></td>
-								<td><%= rs8.getString(2) %></td>
+								<td><a href="" style="font-size: 16px;" data-toggle="modal" data-target="#view-modal" id="<%= rs8.getString(1) %>" class="getCustomerdata"><%= rs8.getString(1) %></a></td>
+								<td><a href="" style="font-size: 16px;" data-toggle="modal" data-target="#view-modal1" id="<%= rs8.getString(2) %>" class="getBookdata"><%= rs8.getString(2) %></a></td>
 								<td>&#8377;<%= rs8.getString(4) %></td>
 								<td><%= rs8.getString(6) %></td>
 								<td><%= rs8.getString(8) %></td>
 								<td><%= rs8.getString(5) %></td>
 								<td>
 								<%if(status.equals("Order Confirmed")){ %>
-								<h3><a href="adminChangetoInProgress.jsp?custid=<%=rs8.getString(1)%>&bookid=<%=rs8.getString(2)%>">In Progress</a></h3>
+								<h3><a href="adminChangetoInProgress.jsp?custid=<%=rs8.getString(1)%>&bookid=<%=rs8.getString(2)%>" style="font-size: 16px;">In Progress</a></h3>
 								<%}
 								if(status.equals("In Progress")){ %>
-								<h3><a href="adminChangetoDeliver.jsp?custid=<%=rs8.getString(1)%>&bookid=<%=rs8.getString(2)%>">Delivered</a></h3>
+								<h3><a href="adminChangetoDeliver.jsp?custid=<%=rs8.getString(1)%>&bookid=<%=rs8.getString(2)%>" style="font-size: 16px;">Delivered</a></h3>
 								<%}
 								if(status.equals("Returning")){ %>
-								<h3><a href="adminChangetoReturn.jsp?custid=<%=rs8.getString(1)%>&bookid=<%=rs8.getString(2)%>">Returned</a></h3>
+								<h3><a href="adminChangetoReturn.jsp?custid=<%=rs8.getString(1)%>&bookid=<%=rs8.getString(2)%>" style="font-size: 16px;">Returned</a></h3>
 								<%} %>
 								</td>
 							</tr>
@@ -506,12 +513,10 @@
 					<table>
 						<thead>
 							<tr>
+								<td>Sell ID</td>
 								<td>Book Name</td>
 								<td>Customer</td>
-								<td>Author</td>
-								<td>Subject</td>
-								<td>ISBN</td>
-								<td>Price</td>
+								<td>Expected Price</td>
 								<td>Status</td>
 							</tr>
 						</thead>
@@ -525,21 +530,23 @@
 							String status = rs9.getString(12);
 						%>
 							<tr>
+								<td><a href="" style="font-size: 16px;" data-toggle="modal" data-target="#view-modal2" id="<%= rs9.getString(1) %>" class="getSelldata"><%= rs9.getString(1) %></a></td>
 								<td><%= rs9.getString(3) %></td>
-								<td><%= rs9.getString(2) %></td>
-								<td><%= rs9.getString(4) %></td>
-								<td><%= rs9.getString(7) %></td>
-								<td><%= rs9.getString(8) %></td>
+								<td><a href="" style="font-size: 16px;" data-toggle="modal" data-target="#view-modal" id="<%= rs9.getString(2) %>" class="getCustomerdata"><%= rs9.getString(2) %></a></td>
 								<td>&#8377;<%= rs9.getString(9) %></td>
 								<%
 								if(status.equals("Pending")){
 								%>
-								<td><h3><a href="adminAcceptOffer.jsp?sellid=<%=rs9.getString(1) %>">Accept</a></h3><h3><a href="adminDeclineOffer.jsp?sellid=<%=rs9.getString(1) %>">Decline</a></h3></td>
+								<td><h3><a href="adminAcceptOffer.jsp?sellid=<%=rs9.getString(1) %>" style="font-size: 16px;">Accept</a></h3><h3><a href="adminDeclineOffer.jsp?sellid=<%=rs9.getString(1) %>" style="font-size: 16px;">Decline</a></h3></td>
 								<%}
-								if(status.equals("Accepted")){
+								else if(status.equals("Accepted")){
 								%>
-								<td></h3><h3><a href="adminSoldBookReceived.jsp?sellid=<%=rs9.getString(1) %>">Received</a></h3></td>
+								<td></h3><h3><a href="adminSoldBookReceived.jsp?sellid=<%=rs9.getString(1) %>" style="font-size: 16px;">Received</a></h3></td>
 								<%} 
+								else if(status.equals("Declined")){
+								%>	
+								<td>Declined</td>
+								<%}
 								else{%>
 								<td>Paid & Received</td>
 								<%} %>
@@ -598,11 +605,11 @@
 				</div>
 				<div class="data-admin-form1">
 					<label>Book ISBN Number</label>
-					<input type="text" name="bookisbn" pattern="^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$" required>
+					<input type="text" name="bookisbn" pattern="^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$" title="Enter Correct ISBN" required>
 				</div>
 				<div class="data-admin-form1">
 					<label>Book Price</label>
-					<input type="text" name="bookprice" required>
+					<input type="number" name="bookprice" required>
 				</div>
 				<div class="data-admin-form1">
 					<label>Book Image</label>
@@ -622,7 +629,75 @@
 			</form>
 		</div>
 	</div>
+	
+	
+<!-- Customer Modal -->
+<div class="modal fade" id="view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Customer Detail</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      	<div id="show-data"></div>
+      </div>
+      
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Book Modal -->
+<div class="modal fade" id="view-modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Book Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      	<div id="show-data1"></div>
+      </div>
+      
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Sell Modal -->
+<div class="modal fade" id="view-modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Book Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      	<div id="show-data2"></div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<!-- JS -->
 	<script>
 		function toggleMenu(){
 			let toggle_admin = document.querySelector('.toggle_admin');
@@ -633,6 +708,53 @@
 			main_admin.classList.toggle('active');
 		}
 	</script>
-
+	
+	<script type="text/javascript">
+ 		$(document).ready(function(){
+ 			$('.getCustomerdata').click(function(){
+ 				var custid=$(this).attr("id");
+ 				$.ajax({
+ 					url:"modalCustomerData.jsp",
+ 					type:"post",
+ 					data:"custid="+custid,
+ 					success:function(data){
+ 						$("#show-data").html(data);
+ 					}
+ 				});
+ 			});
+ 		});
+	</script>
+	
+	<script type="text/javascript">
+ 		$(document).ready(function(){
+ 			$('.getBookdata').click(function(){
+ 				var bookid=$(this).attr("id");
+ 				$.ajax({
+ 					url:"modalBookData.jsp",
+ 					type:"post",
+ 					data:"bookid="+bookid,
+ 					success:function(data){
+ 						$("#show-data1").html(data);
+ 					}
+ 				});
+ 			});
+ 		});
+	</script>
+	
+	<script type="text/javascript">
+ 		$(document).ready(function(){
+ 			$('.getSelldata').click(function(){
+ 				var sellid=$(this).attr("id");
+ 				$.ajax({
+ 					url:"modalSellData.jsp",
+ 					type:"post",
+ 					data:"sellid="+sellid,
+ 					success:function(data){
+ 						$("#show-data2").html(data);
+ 					}
+ 				});
+ 			});
+ 		});
+	</script>
 </body>
 </html>

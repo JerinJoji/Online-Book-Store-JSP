@@ -53,7 +53,6 @@
 		<div class="row">
 		
 		<%
-			String email = session.getAttribute("email").toString();
 			String cusid = session.getAttribute("CusID").toString();
 			String book_id = request.getParameter("id");
 			try{

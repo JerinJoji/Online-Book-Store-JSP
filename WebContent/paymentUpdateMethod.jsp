@@ -11,7 +11,6 @@
 		Connection con = ConnectionProvider.getCon();
 		Statement st = con.createStatement();
 		st.executeUpdate("update cart set PaymentMethod='"+payment+"' where CusID='"+cusid+"' and Status='Bill'");
-		System.out.println("Payment Done");
 		response.sendRedirect("bill.jsp");
 	}catch(Exception e){
 		

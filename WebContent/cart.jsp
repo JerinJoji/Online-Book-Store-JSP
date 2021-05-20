@@ -16,7 +16,6 @@
 <body>
 
 		<%
-		String email = session.getAttribute("email").toString();
 		String cusid = session.getAttribute("CusID").toString();
 		%>		
 		<div class="container">
@@ -38,7 +37,7 @@
 				<nav>
 					<ul id="MenuItems">
 						<li><a href="products.jsp">Home</a></li>
-						<li><a href="">Account</a></li>
+						<li><a href="editprofile.jsp">Account</a></li>
 						<li><a href="orders.jsp">My Orders</a></li>
 						<li><a href="sellingrequest.jsp">Sell Book</a></li>
 						<li><a href="logout.jsp" class="btn-logout">Log Out</a></li>
@@ -63,7 +62,7 @@
 				try{
 					Connection con = ConnectionProvider.getCon();
 					Statement st = con.createStatement();
-					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Added to Cart'");
+					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Added to Cart' or Status = 'Bill'");
 					while(rs.next()){
 						String bookid = rs.getString(2);
 			%>
@@ -101,7 +100,7 @@
 			int cart_total = 0;
 				Connection conn = ConnectionProvider.getCon();
 				Statement stt = conn.createStatement();
-				ResultSet rs2 = stt.executeQuery("SELECT * FROM cart where CusID ='"+cusid+"' and Status = 'Added to Cart'");
+				ResultSet rs2 = stt.executeQuery("SELECT * FROM cart where CusID ='"+cusid+"' and Status = 'Added to Cart' or Status = 'Bill'");
 				while(rs2.next()){
 					cart_total = cart_total + rs2.getInt(4);
 				}

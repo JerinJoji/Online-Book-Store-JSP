@@ -170,14 +170,14 @@
 				<th>Sold Price</th>
 				<th>Status</th>
 			</tr>
-			<tr>
-				<%
+			<%
 				Connection conn = ConnectionProvider.getCon();
 				Statement stt = conn.createStatement();
 				ResultSet rs1 = stt.executeQuery("SELECT * FROM sellrequest where CustID ="+cusid);
 				while(rs1.next()){
 					String filename = rs1.getString(10);
-				%>
+			%>
+			<tr>
 				<td>
 					<div class="cart-info">
 						<img src="assets/<%=filename%>">
@@ -190,8 +190,8 @@
 				</td>
 				<td>&#8377;<%=rs1.getString(9) %> </td>
 				<td><%=rs1.getString(12) %></td>
-				<%} %>
 			</tr>
+			<%} %>
 		</table>
 	</div>
 

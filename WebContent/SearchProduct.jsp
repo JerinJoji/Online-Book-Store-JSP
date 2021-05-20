@@ -14,8 +14,9 @@
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-		<%String email = session.getAttribute("email").toString();
-		String cusid = session.getAttribute("CusID").toString(); %>
+		<%
+		String cusid = session.getAttribute("CusID").toString(); 
+		%>
 		<div class="container">
 			<div class="navbar">
 				<div class="logo">
@@ -72,7 +73,7 @@
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery("SELECT * FROM books where BookName like '%"+search+"%' or Author like '%"+search+"%' or Publisher like '%"+search+"%' or Genre like '%"+search+"%' or Subject like '%"+search+"%' or ISBN like '%"+search+"%' and Active = 'Yes'");
 				while(rs.next()){
-					String filename = rs.getString(11);
+					String filename = rs.getString(10);
 					flag=1;
 			%>
 			<div class="col-4">

@@ -224,7 +224,7 @@
 					<img src="assets/netbook.jpeg" class="offer-img">
 				</div>
 				<div class="col-2">
-					<p>Exclusively Available on Red Store</p>
+					<p>Exclusively Available on PustaakShala</p>
 					<h1>NET 2021</h1>
 					<small>The National Eligibility Test(NET) exam Which would be held this year will hava a new pattern. NET book is compiled with the updated pattern. THere are extra question and Solved papers as well.</small><br>
 					<a href="" class="btn">Buy Now &#8594;</a>

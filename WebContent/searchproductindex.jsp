@@ -32,7 +32,7 @@
 				</div>
 				<nav>
 					<ul id="MenuItems">
-						<li><a href="products.jsp">Home</a></li>
+						<li><a href="productsindex.jsp">Home</a></li>
 						<li><a href="">About</a></li>
 						<li><a href="">Contact</a></li>
 					</ul>
@@ -69,7 +69,7 @@
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery("SELECT * FROM books where BookName like '%"+search+"%' or Author like '%"+search+"%' or Publisher like '%"+search+"%' or Genre like '%"+search+"%' or Subject like '%"+search+"%' or ISBN like '%"+search+"%' and Active = 'Yes'");
 				while(rs.next()){
-					String filename = rs.getString(11);
+					String filename = rs.getString(10);
 					flag=1;
 			%>
 			<div class="col-4">
