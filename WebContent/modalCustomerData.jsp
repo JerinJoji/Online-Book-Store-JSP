@@ -25,6 +25,11 @@
   					</tr>
   					
   					<tr>
+    					<th>Address</th>
+    					<td><%=rs.getString("HouseBuilding")%>,<%=rs.getString("Location")%>,<%=rs.getString("StreetName")%></td>
+  					</tr>
+  					
+  					<tr>
     					<th>City</th>
     					<td><%=rs.getString("City")%></td>
   					</tr>

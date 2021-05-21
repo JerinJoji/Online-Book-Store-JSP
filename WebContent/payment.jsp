@@ -146,7 +146,7 @@
 										<option value="Cash on Delivery">Cash on Delivery</option>
 									</select>
 									
-									<label for="cname">Enter UPI ID</label>
+									<label for="cname">Enter UPI ID (Example: 123@abc)</label>
 									<input type="text" id="cname" pattern="^[\w.-]+@[\w.-]+$" title="Enter UPI Correctly" required>
 									<%}
 									if(pay.equals("Cash on Delivery")){

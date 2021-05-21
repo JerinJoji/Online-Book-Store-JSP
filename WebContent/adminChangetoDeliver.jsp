@@ -9,7 +9,7 @@ String custid = request.getParameter("custid");
 try{
 	Connection con = ConnectionProvider.getCon();
 	Statement st = con.createStatement();
-	st.executeUpdate("update cart set Status='Delivered' where Book_ID="+bookid+" and CusID="+custid+" and Status='In Progress'");
+	st.executeUpdate("update cart set Status='Delivered', DeliverDate=now() where Book_ID="+bookid+" and CusID="+custid+" and Status='In Progress'");
 	response.sendRedirect("admindashboard.jsp");
 }
 catch(Exception e){

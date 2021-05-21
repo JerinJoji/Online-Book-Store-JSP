@@ -53,6 +53,11 @@
     					<th>Book Price</th>
     					<td><%=rs.getString("BookPrice")%></td>
   					</tr>
+  					
+  					<tr>
+    					<th>Book Image</th>
+    					<td><img alt="<%=rs.getString("BookName")%>" src="assets/<%=rs.getString("Bookimage")%>"></td>
+  					</tr>
   				</table>
 <%
 			}

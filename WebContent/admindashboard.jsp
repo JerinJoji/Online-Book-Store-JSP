@@ -269,11 +269,6 @@
 							<tr>
 								<td>Book ID</td>
 								<td>Book Name</td>
-								<td>Author</td>
-								<td>Publisher</td>
-								<td>Genre</td>
-								<td>Subject</td>
-								<td>ISBN</td>
 								<td>Price</td>
 								<td>Active</td>
 								<td>Action</td>
@@ -289,20 +284,15 @@
 							String active = rs6.getString(9);
 						%>
 							<tr>
-								<td><%= rs6.getString(1) %></td>
+								<td><a href="" style="font-size: 16px;" data-toggle="modal" data-target="#view-modal1" id="<%= rs6.getString(1) %>" class="getBookdata"><%= rs6.getString(1) %></a></td>
 								<td><%= rs6.getString(2) %></td>
-								<td><%= rs6.getString(3) %></td>
-								<td><%= rs6.getString(4) %></td>
-								<td><%= rs6.getString(5) %></td>
-								<td><%= rs6.getString(6) %></td>
-								<td><%= rs6.getString(7) %></td>
 								<td><%= rs6.getString(8) %></td>
 								<td><%= rs6.getString(9) %></td>
 								<td>
 								<%if(active.equals("No")){%>
-								<h3><a href="adminActivateBook.jsp?bookid=<%=rs6.getString(1) %>">Active</a></h3>
+								<h3><a href="adminActivateBook.jsp?bookid=<%=rs6.getString(1) %>" style="font-size: 16px;">Active</a></h3>
 								<%}else{ %>
-								<h3><a href="adminDeactivateBook.jsp?bookid=<%=rs6.getString(1) %>">Deactive</a></h3>
+								<h3><a href="adminDeactivateBook.jsp?bookid=<%=rs6.getString(1) %>" style="font-size: 16px;">Deactive</a></h3>
 								<%} %>
 								</td>
 							</tr>
@@ -354,8 +344,6 @@
 							<tr>
 								<td>Customer ID</td>
 								<td>Name</td>
-								<td>City</td>
-								<td>State</td>
 								<td>Email</td>
 								<td>Phone</td>
 								<td>Date of Signing</td>
@@ -371,15 +359,13 @@
 						while(rs7.next()){
 						%>
 							<tr>
-								<td><%= rs7.getString(1) %></td>
+								<td><a href="" style="font-size: 16px;" data-toggle="modal" data-target="#view-modal" id="<%= rs7.getString(1) %>" class="getCustomerdata"><%= rs7.getString(1) %></a></td>
 								<td><%= rs7.getString(2) %> <%= rs7.getString(3) %></td>
-								<td><%= rs7.getString(8) %></td>
-								<td><%= rs7.getString(9) %></td>
 								<td><%= rs7.getString(10) %></td>
 								<td><%= rs7.getString(11) %></td>
 								<td><%= rs7.getString(13) %></td>
 								<td>
-								<h3><a href="adminDeleteCustomer.jsp?custid=<%=rs7.getString(1) %>">Delete</a></h3>
+								<h3><a href="adminDeleteCustomer.jsp?custid=<%=rs7.getString(1) %>" style="font-size: 16px;">Delete</a></h3>
 								</td>
 							</tr>
 						<%}}catch(Exception e){
@@ -682,7 +668,7 @@
     <div class="modal-content">
       
       <div class="modal-header">
-        <h5 class="modal-title">Book Details</h5>
+        <h5 class="modal-title">Selling Book Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

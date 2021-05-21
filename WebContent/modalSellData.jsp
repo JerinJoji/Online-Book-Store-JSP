@@ -68,6 +68,11 @@
     					<th>Sell Status</th>
     					<td><%=rs.getString("SellStatus")%></td>
   					</tr>
+  					
+  					<tr>
+    					<th>Sell Book Image</th>
+    					<td><img alt="<%=rs.getString("SellBookname")%>" src="assets/<%=rs.getString("SBookImage")%>"></td>
+  					</tr>
   				</table>
 <%
 			}
