@@ -12,11 +12,16 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
 </head>
 <body>
 
 		<%
-		String email = session.getAttribute("email").toString();
 		String cusid = session.getAttribute("CusID").toString();
 		%>		
 		<div class="container">
@@ -176,6 +181,7 @@
 				ResultSet rs1 = stt.executeQuery("SELECT * FROM sellrequest where CustID ="+cusid);
 				while(rs1.next()){
 					String filename = rs1.getString(10);
+					String status = rs1.getString("SellStatus");
 			%>
 			<tr>
 				<td>
@@ -189,11 +195,38 @@
 					</div>
 				</td>
 				<td>&#8377;<%=rs1.getString(9) %> </td>
-				<td><%=rs1.getString(12) %></td>
+				<%if(status.equals("Negotiated")){ %>
+				<td>
+				<a href="" style="font-size: 16px;" data-toggle="modal" data-target="#nego-modal-form" id="<%= rs1.getString(1) %>" class="negooffer">Negotiate</a>
+				</td>
+				<%}else{%>
+				<td><%=rs1.getString("SellStatus") %></td>
+				<%} %>
 			</tr>
 			<%} %>
 		</table>
 	</div>
+	
+	
+<!-- Negotiate Modal -->
+<div class="modal fade" id="nego-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Negotiate Offer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      	<div id="nego-data"></div>
+      </div>
+      
+    </div>
+  </div>
+</div>
 
 
 
@@ -237,6 +270,9 @@
 			<p class="copyright">Copyright 2020 - Our Store</p>
 		</div>
 	</div>
+	
+	
+
 
 <!------------------- js for toggle menu -------------------->
 	<script>
@@ -256,6 +292,20 @@
 		}
 	</script>
 
-
+	<script type="text/javascript">
+ 		$(document).ready(function(){
+ 			$('.negooffer').click(function(){
+ 				var sellid=$(this).attr("id");
+ 				$.ajax({
+ 					url:"modalCustNegoOffer.jsp",
+ 					type:"post",
+ 					data:"sellid="+sellid,
+ 					success:function(data){
+ 						$("#nego-data").html(data);
+ 					}
+ 				});
+ 			});
+ 		});
+	</script>
 </body>
 </html>

@@ -117,7 +117,7 @@
 						<div class="cardName-admin">Number of Customers</div>
 					</div>
 					<div class="iconBox-admin">
-						<i class="fa fa-eye" aria-hidden="true"></i>
+						<i class="fa fa-users" aria-hidden="true"></i>
 					</div>
 				</div>
 				<%} %>
@@ -157,7 +157,7 @@
 				<div class="card-admin">
 					<div>
 						<div class="numbers-admin">&#8377;<%= sum %></div>
-						<div class="cardName-admin">Earning</div>
+						<div class="cardName-admin">Orders Earnings</div>
 					</div>
 					<div class="iconBox-admin">
 						<i class="fa fa-inr" aria-hidden="true"></i>
@@ -531,15 +531,21 @@
 								<%
 								if(status.equals("Pending")){
 								%>
-								<td><h3><a href="adminAcceptOffer.jsp?sellid=<%=rs9.getString(1) %>" style="font-size: 16px;">Accept</a></h3><h3><a href="adminDeclineOffer.jsp?sellid=<%=rs9.getString(1) %>" style="font-size: 16px;">Decline</a></h3></td>
+								<td>
+								<h3><a href="" style="font-size: 16px;" data-toggle="modal" data-target="#nego-modal-form" id="<%= rs9.getString(1) %>" class="negooffer">Action</a></h3>
+								</td>
 								<%}
 								else if(status.equals("Accepted")){
 								%>
-								<td></h3><h3><a href="adminSoldBookReceived.jsp?sellid=<%=rs9.getString(1) %>" style="font-size: 16px;">Received</a></h3></td>
+								<td><h3><a href="adminSoldBookReceived.jsp?sellid=<%=rs9.getString(1) %>" style="font-size: 16px;">Received</a></h3></td>
 								<%} 
 								else if(status.equals("Declined")){
 								%>	
 								<td>Declined</td>
+								<%}
+								else if(status.equals("Negotiated")){
+								%>	
+								<td>New Offer Sent</td>
 								<%}
 								else{%>
 								<td>Paid & Received</td>
@@ -727,6 +733,26 @@
   </div>
 </div>
 
+<!-- Negotiate Modal -->
+<div class="modal fade" id="nego-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Negotiate Offer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      	<div id="nego-data"></div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
 <!-- JS -->
 	<script>
 		function toggleMenu(){
@@ -813,6 +839,22 @@
  					//data:"bookid="+bookid,
  					success:function(data){
  						$("#addbook-data").html(data);
+ 					}
+ 				});
+ 			});
+ 		});
+	</script>
+	
+	<script type="text/javascript">
+ 		$(document).ready(function(){
+ 			$('.negooffer').click(function(){
+ 				var sellid=$(this).attr("id");
+ 				$.ajax({
+ 					url:"modalNegoOffer.jsp",
+ 					type:"post",
+ 					data:"sellid="+sellid,
+ 					success:function(data){
+ 						$("#nego-data").html(data);
  					}
  				});
  			});
