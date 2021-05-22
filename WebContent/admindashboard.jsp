@@ -30,13 +30,13 @@
 		<div class="navigation_admin">
 			<ul>
 				<li>
-					<a href="#">
+					<a href="admindashboard.jsp">
 						<span class="icon-admin"><i class="fa fa-book" aria-hidden="true"></i></span>
 						<span class="title-admin"><h2>PustaakShala</h2></span>
 					</a>
 				</li>
 				<li>
-					<a href="#">
+					<a href="admindashboard.jsp">
 						<span class="icon-admin"><i class="fa fa-home" aria-hidden="true"></i></span>
 						<span class="title-admin">Dashboard</span>
 					</a>
@@ -47,10 +47,16 @@
 						<span class="title-admin">Customers</span>
 					</a>
 				</li>
-				<li>
+				<!--<li>
 					<a href="#">
 						<span class="icon-admin"><i class="fa fa-plus" aria-hidden="true"></i></span>
 						<label for="show"><span class="title-admin">Add/Edit Books</span></label>
+					</a>
+				</li>-->
+				<li>
+					<a href="" data-toggle="modal" data-target="#add-modal-form" id="" class="addBook">
+						<span class="icon-admin"><i class="fa fa-plus" aria-hidden="true"></i></span>
+						<span class="title-admin">Add Books</span>
 					</a>
 				</li>
 				<li>
@@ -271,6 +277,7 @@
 								<td>Book Name</td>
 								<td>Price</td>
 								<td>Active</td>
+								<td>Edit</td>
 								<td>Action</td>
 							</tr>
 						</thead>
@@ -288,6 +295,7 @@
 								<td><%= rs6.getString(2) %></td>
 								<td><%= rs6.getString(8) %></td>
 								<td><%= rs6.getString(9) %></td>
+								<td><h3><a href="" style="font-size: 16px;" data-toggle="modal" data-target="#view-modal-form" id="<%= rs6.getString(1) %>" class="editBookdetails">Edit</a></h3></td>
 								<td>
 								<%if(active.equals("No")){%>
 								<h3><a href="adminActivateBook.jsp?bookid=<%=rs6.getString(1) %>" style="font-size: 16px;">Active</a></h3>
@@ -634,7 +642,6 @@
       </div>
       
       <div class="modal-footer">
-      </div>
     </div>
   </div>
 </div>
@@ -655,8 +662,6 @@
       	<div id="show-data1"></div>
       </div>
       
-      <div class="modal-footer">
-      </div>
     </div>
   </div>
 </div>
@@ -682,6 +687,46 @@
   </div>
 </div>
 
+<!-- Edit book Modal -->
+<div class="modal fade" id="view-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Book Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      	<div id="edit-data"></div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<!-- Add book Modal -->
+<div class="modal fade" id="add-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Add Book</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      	<div id="addbook-data"></div>
+      </div>
+      
+    </div>
+  </div>
+</div>
 
 <!-- JS -->
 	<script>
@@ -737,6 +782,38 @@
  					data:"sellid="+sellid,
  					success:function(data){
  						$("#show-data2").html(data);
+ 					}
+ 				});
+ 			});
+ 		});
+	</script>
+	
+	<script type="text/javascript">
+ 		$(document).ready(function(){
+ 			$('.editBookdetails').click(function(){
+ 				var bookid=$(this).attr("id");
+ 				$.ajax({
+ 					url:"modalEditBook.jsp",
+ 					type:"post",
+ 					data:"bookid="+bookid,
+ 					success:function(data){
+ 						$("#edit-data").html(data);
+ 					}
+ 				});
+ 			});
+ 		});
+	</script>
+	
+	<script type="text/javascript">
+ 		$(document).ready(function(){
+ 			$('.addBook').click(function(){
+ 				//var bookid=$(this).attr("id");
+ 				$.ajax({
+ 					url:"modalAddBook.jsp",
+ 					type:"post",
+ 					//data:"bookid="+bookid,
+ 					success:function(data){
+ 						$("#addbook-data").html(data);
  					}
  				});
  			});
