@@ -72,8 +72,7 @@
   		</tr>
   		
   		<tr>
-  			<td></td>
-  			<td><input type="submit" value="Add Book"></td>
+  			<td colspan="2"><input type="submit" style="background:#ff523b; color:#fff; border-radius:10px;" value="Add Book"></td>
   		</tr>
   				
   	</table>

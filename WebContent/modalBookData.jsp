@@ -51,7 +51,7 @@
   					
   					<tr>
     					<th>Book Price</th>
-    					<td><%=rs.getString("BookPrice")%></td>
+    					<td>&#8377;<%=rs.getString("BookPrice")%></td>
   					</tr>
   					
   					<tr>

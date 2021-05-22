@@ -50,13 +50,13 @@
   					</tr>
   					
   					<tr>
-    					<th>Book Price</th>
-    					<td><%=rs.getString("SRBPrice")%></td>
+    					<th>Book Real Price</th>
+    					<td>&#8377;<%=rs.getString("SRBPrice")%></td>
   					</tr>
   					
   					<tr>
-    					<th>Expected Price</th>
-    					<td><%=rs.getString("SBookPrice")%></td>
+    					<th>User Expected Price</th>
+    					<td>&#8377;<%=rs.getString("SBookPrice")%></td>
   					</tr>
   					
   					<tr>
