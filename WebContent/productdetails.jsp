@@ -73,7 +73,7 @@
 				<%
 				Connection conn = ConnectionProvider.getCon();
 				Statement stt = conn.createStatement();
-				ResultSet rs1 = stt.executeQuery("SELECT * FROM cart where Book_ID="+book_id+" and CusID="+cusid);
+				ResultSet rs1 = stt.executeQuery("SELECT * FROM cart where Book_ID="+book_id+" and CusID="+cusid+" and Status='Added to Cart'");
 				if(rs1.next()==false){
 				%>
 				<a href="addToCart.jsp?bookid=<%= book_id %>&price=<%=rs.getString(8) %>" class="btn">Add To Cart</a>
