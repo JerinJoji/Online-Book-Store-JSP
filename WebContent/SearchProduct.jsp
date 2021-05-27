@@ -54,7 +54,7 @@
 	<div class="small-container">
 
 		<div class="row row-2">
-			<h2>All Products</h2>
+			<h2>Searched Products</h2>
 			<select>
 				<option>Default sorting</option>
 				<option>Sort by price</option>
