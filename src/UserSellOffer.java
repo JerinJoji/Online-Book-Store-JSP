@@ -73,7 +73,7 @@ public class UserSellOffer extends HttpServlet {
 		
         try{
 			Connection con = ConnectionProvider.getCon();
-			PreparedStatement ps = con.prepareStatement("insert into sellrequest(CustID,SellBookName,SBookAuthor,SBookPublisher,SBookGenre,SBookSubject,SBookISBN,SBookPrice,SBookImage,SellPath,SellStatus,SRBPrice,SYearsUsed) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into sellrequest(CustID,SellBookName,SBookAuthor,SBookPublisher,SBookGenre,SBookSubject,SBookISBN,SBookPrice,SBookImage,SellPath,SellStatus,SRBPrice,SYearsUsed,SellDate) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,now())");
 			ps.setString(1, cusid);
 			ps.setString(2, sbookname);
 			ps.setString(3, sbookauthor);

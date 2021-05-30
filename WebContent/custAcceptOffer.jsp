@@ -9,7 +9,7 @@ String sellid = request.getParameter("sellid");
 try{
 	Connection con = ConnectionProvider.getCon();
 	Statement st = con.createStatement();
-	st.executeUpdate("update sellrequest set SellStatus='Accepted' where SellID="+sellid+" and SellStatus='Pending' or SellStatus='Negotiated'");
+	st.executeUpdate("update sellrequest set SellStatus='Accepted', SellDate=now() where SellID="+sellid+" and SellStatus='Pending' or SellStatus='Negotiated'");
 	response.sendRedirect("orders.jsp");
 }
 catch(Exception e){

@@ -55,7 +55,7 @@
 		<table>
 			<tr>
 				<th>Product</th>
-				<th>Quantity</th>
+				<th></th>
 				<th>Subtotal</th>
 			</tr>
 			<%
@@ -78,14 +78,14 @@
 					<div class="cart-info">
 						<img src="assets/<%=filename%>">
 						<div>
-							<p><%=rs1.getString(2) %></p>
+							<h3><%=rs1.getString(2) %></h3>
 							<small>Price:&#8377;<%=rs1.getString(8) %> </small>
 							<br>
 							<a href="removefromcart.jsp?bookid=<%= rs1.getString(1) %>">Remove</a>
 						</div>
 					</div>
 				</td>
-				<td><input type="number" value="1"></td>
+				<td></td>
 				<td>&#8377;<%=rs.getString(4) %></td>
 				<%} %>
 			</tr>

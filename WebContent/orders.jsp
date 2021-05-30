@@ -85,7 +85,7 @@
 					<div class="cart-info">
 						<img src="assets/<%=filename%>">
 						<div>
-							<p><%=rs1.getString(2) %></p>
+							<h6><%=rs1.getString(2) %></h6>
 							<small>Price:  &#8377;<%=rs.getString(4) %> </small>
 							<br>
 							<small>Status:  <b><%=rs.getString(5) %></b></small>
@@ -135,7 +135,7 @@
 					<div class="cart-info">
 						<img src="assets/<%=filename%>">
 						<div>
-							<p><%=rs1.getString(2) %></p>
+							<h6><%=rs1.getString(2) %></h6>
 							<small>Price:  &#8377;<%=rs.getString(4) %> </small>
 							<br>
 						</div>
@@ -172,8 +172,9 @@
 		<table>
 			<tr>
 				<th>Product</th>
-				<th>Sold Price</th>
+				<th>Date</th>
 				<th>Status</th>
+				
 			</tr>
 			<%
 				Connection conn = ConnectionProvider.getCon();
@@ -188,13 +189,16 @@
 					<div class="cart-info">
 						<img src="assets/<%=filename%>">
 						<div>
-							<p><%=rs1.getString(3) %></p>
+							<h6><%=rs1.getString(3) %></h6>
 							<small>Sell ID : <%=rs1.getString(1) %></small>
 							<br>
+							<%if(status.equals("Paid & Recieved")){ %>
+							<small><a href="billsell.jsp?id=<%=rs1.getString(1)%>">Bill</a></small>
+							<%} %>
 						</div>
 					</div>
 				</td>
-				<td>&#8377;<%=rs1.getString(9) %> </td>
+				<td><%=rs1.getString("SellDate") %> </td>
 				<%if(status.equals("Negotiated")){ %>
 				<td>
 				<a href="" style="font-size: 16px;" data-toggle="modal" data-target="#nego-modal-form" id="<%= rs1.getString(1) %>" class="negooffer">Negotiate</a>

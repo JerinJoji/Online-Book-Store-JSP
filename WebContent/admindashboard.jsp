@@ -191,7 +191,7 @@
 						try{
 						Connection con = ConnectionProvider.getCon();
 						Statement st = con.createStatement();
-						ResultSet rs4 = st.executeQuery("SELECT * FROM cart join books on cart.Book_ID = books.BookID where cart.Status!='Added to Cart' order by OrderDate desc;");
+						ResultSet rs4 = st.executeQuery("SELECT * FROM cart join books on cart.Book_ID = books.BookID where cart.Status!='Added to Cart' and cart.Status!='Bill' order by OrderDate desc;");
 						while(rs4.next()){
 							int bookid = rs4.getInt(2);
 							String status = rs4.getString(5);  
