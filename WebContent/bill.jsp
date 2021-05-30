@@ -4,7 +4,7 @@
 <%@ page import ="java.sql.*"%>
 <!DOCTYPE html>
 <head>
-    <title>Bill | PustaakShala</title>
+    <title>Order Summary | PustaakShala</title>
     <style>
         tbody{
             display: table-row-group; 
@@ -77,10 +77,11 @@
        <img src="assets/logo.png" width="91" height="91" border="0">
        <br clear="\"all\"">
        <center style="display: block;">
-            <b style="color: #E47911; font-size: medium; font-family: Verdana, Arial, Helvetica, sans-serif;">
+            <b style="color: #E47911; font-size: xx-large; font-family: Verdana, Arial, Helvetica, sans-serif;">
                 PUSTAAKSHALA   
             </b>
             <br>
+            <p style=" font-size: large; font-family: Verdana, Arial, Helvetica, sans-serif;">Order Summary</p>
        </center> 
        <br>
        

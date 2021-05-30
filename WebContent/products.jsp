@@ -19,7 +19,11 @@
 </head>
 <body>
 		<%
-			String cusid = session.getAttribute("CusID").toString();
+			
+			if(session.getAttribute("CusID") == null){
+				response.sendRedirect("account.jsp");
+			}
+		
 		%>
 				
 		<div class="container">

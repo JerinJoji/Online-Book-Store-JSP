@@ -193,7 +193,7 @@
 							<small>Sell ID : <%=rs1.getString(1) %></small>
 							<br>
 							<%if(status.equals("Paid & Recieved")){ %>
-							<small><a href="billsell.jsp?id=<%=rs1.getString(1)%>">Bill</a></small>
+							<small><a href="billsell.jsp?id=<%=rs1.getString(1)%>">Receipt</a></small>
 							<%} %>
 						</div>
 					</div>

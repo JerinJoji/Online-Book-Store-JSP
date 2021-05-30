@@ -9,12 +9,11 @@ try{
 	String book_id = request.getParameter("bookid");
 	String price = request.getParameter("price");
 	Connection con = ConnectionProvider.getCon();
-	PreparedStatement ps = con.prepareStatement("insert into cart(CusID,Book_ID,Quantity,Price,Status) VALUES(?,?,?,?,?)");
+	PreparedStatement ps = con.prepareStatement("insert into cart(CusID,Book_ID,Price,Status) VALUES(?,?,?,?)");
 	ps.setString(1, cusid);
 	ps.setString(2, book_id);
-	ps.setString(3, "1");
-	ps.setString(4, price);
-	ps.setString(5, "Added to Cart");
+	ps.setString(3, price);
+	ps.setString(4, "Added to Cart");
 	ps.executeUpdate();
 	response.sendRedirect("products.jsp");
 }
