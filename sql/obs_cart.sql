@@ -25,13 +25,20 @@ DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
   `CusID` int DEFAULT NULL,
   `Book_ID` int DEFAULT NULL,
-  `Quantity` int DEFAULT NULL,
+  `OrderID` int NOT NULL AUTO_INCREMENT,
   `Price` int DEFAULT NULL,
   `Status` varchar(45) DEFAULT NULL,
   `OrderDate` date DEFAULT NULL,
   `DeliverDate` date DEFAULT NULL,
-  `PaymentMethod` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `PaymentMethod` varchar(45) DEFAULT NULL,
+  `ShipCName` varchar(45) DEFAULT NULL,
+  `ShipCPhone` varchar(45) DEFAULT NULL,
+  `ShipCAdr` varchar(255) DEFAULT NULL,
+  `ShipCCity` varchar(45) DEFAULT NULL,
+  `ShipCState` varchar(45) DEFAULT NULL,
+  `ShipCPin` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`OrderID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -43,4 +50,4 @@ CREATE TABLE `cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-21  1:01:24
+-- Dump completed on 2021-06-01  0:36:40

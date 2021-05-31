@@ -5,12 +5,18 @@
 
 <%
 	String payment = request.getParameter("paymentmethod");
+	String fullname = request.getParameter("fullname");
+	String phone = request.getParameter("phone");
+	String adr = request.getParameter("adr");
+	String city = request.getParameter("city");
+	String state = request.getParameter("state");
+	String pincode = request.getParameter("pincode");
 	String cusid = session.getAttribute("CusID").toString();
 
 	try{
 		Connection con = ConnectionProvider.getCon();
 		Statement st = con.createStatement();
-		st.executeUpdate("update cart set PaymentMethod='"+payment+"' where CusID='"+cusid+"' and Status='Bill'");
+		st.executeUpdate("update cart set PaymentMethod='"+payment+"', ShipCName='"+fullname+"', ShipCPhone='"+phone+"', ShipCAdr='"+adr+"', ShipCCity='"+city+"', ShipCState='"+state+"', ShipCPin='"+pincode+"' where CusID='"+cusid+"' and Status='Bill'");
 		response.sendRedirect("bill.jsp");
 	}catch(Exception e){
 		

@@ -37,8 +37,11 @@ CREATE TABLE `sellrequest` (
   `SellStatus` varchar(45) DEFAULT NULL,
   `SRBPrice` int DEFAULT NULL,
   `SYearsUsed` varchar(45) DEFAULT NULL,
+  `SCustDesp` varchar(300) DEFAULT NULL,
+  `SAdminDesp` varchar(300) DEFAULT NULL,
+  `SellDate` date DEFAULT NULL,
   PRIMARY KEY (`SellID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +53,4 @@ CREATE TABLE `sellrequest` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-21  1:01:24
+-- Dump completed on 2021-06-01  0:36:41

@@ -194,12 +194,12 @@
 						ResultSet rs4 = st.executeQuery("SELECT * FROM cart join books on cart.Book_ID = books.BookID where cart.Status!='Added to Cart' and cart.Status!='Bill' order by OrderDate desc;");
 						while(rs4.next()){
 							int bookid = rs4.getInt(2);
-							String status = rs4.getString(5);  
+							String status = rs4.getString("Status");  
 						%>
 							<tr>
-								<td><%= rs4.getString(10) %></td>
-								<td>&#8377;<%= rs4.getString(4) %></td>
-								<td><%= rs4.getString(8) %></td>
+								<td><%= rs4.getString("BookName") %></td>
+								<td>&#8377;<%= rs4.getString("Price") %></td>
+								<td><%= rs4.getString("PaymentMethod") %></td>
 								<%
 								if("Delivered".equals(status))
 								{
@@ -424,11 +424,11 @@
 					<table>
 						<thead>
 							<tr>
+								<td>Order ID</td>
 								<td>Customer ID</td>
 								<td>Book ID</td>
 								<td>Price</td>
 								<td>Order Date</td>
-								<td>Payment</td>
 								<td>Status</td>
 								<td>Action</td>
 							</tr>
@@ -443,11 +443,11 @@
 							String status = rs8.getString(5);
 						%>
 							<tr>
+								<td><%= rs8.getString(3) %></td>
 								<td><a href="" style="font-size: 16px;" data-toggle="modal" data-target="#view-modal" id="<%= rs8.getString(1) %>" class="getCustomerdata"><%= rs8.getString(1) %></a></td>
 								<td><a href="" style="font-size: 16px;" data-toggle="modal" data-target="#view-modal1" id="<%= rs8.getString(2) %>" class="getBookdata"><%= rs8.getString(2) %></a></td>
 								<td>&#8377;<%= rs8.getString(4) %></td>
 								<td><%= rs8.getString(6) %></td>
-								<td><%= rs8.getString(8) %></td>
 								<td><%= rs8.getString(5) %></td>
 								<td>
 								<%if(status.equals("Order Confirmed")){ %>

@@ -63,9 +63,10 @@
 				<div class="checkout-col-75">
 					<div class="checkout-container">
 						<form action="paymentUpdateMethod.jsp" method="post">
-							
 							<div class="checkout-row">
+							
 								<div class="checkout-col-58">
+								
 								<%
 								try{
 									Connection con = ConnectionProvider.getCon();
@@ -75,31 +76,33 @@
 								%>
 									<h3 style = "margin-bottom:20px; margin-top:15px;">Billing Address</h3>
 									<label for="fname"><i class="fa fa-user" style="margin-right:10px;"></i>Full Name</label>
-									<input type="text" id="" value="<%=rs.getString(2) %> <%=rs.getString(3) %>" disabled>
+									<input type="text" name="fullname" value="<%=rs.getString(2) %> <%=rs.getString(3) %>" >
 										
-									<label for="email"><i class="fa fa-envelope" style="margin-right:10px;"></i>Email</label>
-									<input type="text" id="" name="" value="<%=rs.getString(10) %>" disabled>
+									<label for="email"><i class="fa fa-phone" style="margin-right:10px;"></i>Phone Number</label>
+									<input type="text" name="phone" value="<%=rs.getString("PhoneNumber") %>" >
 										
 									<label for="adr"><i class="fa fa-address-card-o" style="margin-right:10px;"></i>Address</label>
-									<input type="text" id="" name="" value="<%=rs.getString(4) %>, <%=rs.getString(5) %>, <%=rs.getString(6) %>" disabled>
+									<input type="text" name="adr" value="<%=rs.getString(4) %>, <%=rs.getString(5) %>, <%=rs.getString(6) %>" >
 										
 									<label for="city"><i class="fa fa-institution" style="margin-right:10px;"></i>City</label>
-									<input type="text" id="" name="" value="<%=rs.getString(8) %>" disabled>
+									<input type="text" id="city" name="city" value="<%=rs.getString(8) %>" >
 									<div class="checkout-row">
 										<div class="checkout-col-50">
 											<label for="state">State</label>
-											<input type="text" id="state" name="" value="<%=rs.getString(9) %>" disabled>
+											<input type="text" id="state" name="state" value="<%=rs.getString(9) %>" >
 										</div>
 										<div class="checkout-col-50">
 											<label for="zip">Pincode</label>
-											<input type="text" id="zip" name="" value="<%=rs.getString(7) %>" disabled>
+											<input type="text" id="pin" name="pincode" value="<%=rs.getString(7) %>" >
 										</div>
-									</div>		
+									</div>
+											
 									<%}}catch(Exception e){
 										System.out.println(e);
 									}
 									%>					
 								</div>
+								
 								
 								<div class="checkout-col-50">
 									<h3 style = "margin-bottom:20px; margin-top:15px;">Payment</h3>
@@ -235,6 +238,6 @@
 	function OnGradeChanged(value){
     	window.location.replace("payment.jsp?paymode="+value);
 	}
-</script>
+	</script>
 </body>
 </html>

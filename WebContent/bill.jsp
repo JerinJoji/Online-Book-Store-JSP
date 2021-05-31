@@ -100,12 +100,12 @@
                             <tbody>
                                 <tr>
                                     <td valign="top" align="left">
-                                        <b>Order Placed</b>: <%=rs.getString(6) %>
+                                        <b>Order Placed</b>: <%=rs.getString("OrderDate") %>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td valign="top" align="left">
-                                        <b>Expected Delivery Date</b>: <%=rs.getString(7) %>
+                                        <b>Expected Delivery Date</b>: <%=rs.getString("DeliverDate") %>
                                     </td>
                                 </tr>
                                 <tr>
@@ -176,8 +176,8 @@
                                                                 while(rs1.next()){                                                                
                                                                 %>
                                                                 <tr>
-                                                                    <td colspan="1" valign="top"><%=i%>. <%=rs1.getString(23) %><br></td>
-                                                                    <td align="right" colspan="2" valign="top">&#8377;<%=rs1.getString(4) %><br></td>
+                                                                    <td colspan="1" valign="top"><%=i%>. <%=rs1.getString("BookName") %><br></td>
+                                                                    <td align="right" colspan="2" valign="top">&#8377;<%=rs1.getString("BookPrice") %><br></td>
                                                                 </tr>
                                                                 
                                                                 <%
@@ -268,16 +268,16 @@
                                                                         </table>
                                                                         <b>Payment Method:</b>
                                                                         <br>
-                                                                        <%=rs2.getString(8) %>
+                                                                        <%=rs2.getString("PaymentMethod") %>
                                                                         <br>
                                                                         <br>
                                                                         <b>Shipping Address:</b>
                                                                         <div class="displayAddressDiv">
                                                                             <ul class="displayAddressUL">
-                                                                                <li class="displayAddressLI displayAddressFullName"><%=rs2.getString(10) %> <%=rs2.getString(11) %></li>
-                                                                                <li class="displayAddressLI displayAddressFullName"><%=rs2.getString(12) %>, <%=rs2.getString(14) %></li>
-                                                                                <li class="displayAddressLI displayAddressFullName"><%=rs2.getString(13) %></li>
-                                                                                <li class="displayAddressLI displayAddressFullName"><%=rs2.getString(16) %>, <%=rs2.getString(17) %> - <%=rs2.getString(15) %></li>
+                                                                                <li class="displayAddressLI displayAddressFullName"><%=rs2.getString("ShipCName") %></li>
+                                                                                <li class="displayAddressLI displayAddressFullName"><%=rs2.getString("ShipCPhone") %></li>
+                                                                                <li class="displayAddressLI displayAddressFullName"><%=rs2.getString("ShipCAdr") %></li>
+                                                                                <li class="displayAddressLI displayAddressFullName"><%=rs2.getString("ShipCCity") %>, <%=rs2.getString("ShipCState") %> - <%=rs2.getString("ShipCPin") %></li>
                                                                             </ul>
                                                                         </div>
                                                                     </td>
