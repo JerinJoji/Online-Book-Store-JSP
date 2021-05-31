@@ -136,16 +136,16 @@
 				</div>
 				<%} %>
 				<%
-				ResultSet rs2 = st.executeQuery("SELECT count(*) FROM sellrequest where SellStatus='Pending';");
+				ResultSet rs2 = st.executeQuery("SELECT count(*) FROM books;");
 				if(rs2.next()){
 				%>
 				<div class="card-admin">
 					<div>
 						<div class="numbers-admin"><%= rs2.getInt(1) %></div>
-						<div class="cardName-admin">Sell Requests</div>
+						<div class="cardName-admin">Number Of Books</div>
 					</div>
 					<div class="iconBox-admin">
-						<i class="fa fa-paper-plane" aria-hidden="true"></i>
+						<i class="fa fa-book" aria-hidden="true"></i>
 					</div>
 				</div>
 				<%} %>
@@ -443,7 +443,7 @@
 							String status = rs8.getString(5);
 						%>
 							<tr>
-								<td><%= rs8.getString(3) %></td>
+								<td><a href="" style="font-size: 16px;" data-toggle="modal" data-target="#view-modal3" id="<%= rs8.getString(3) %>" class="getOrderdata"><%= rs8.getString(3) %></a></td>
 								<td><a href="" style="font-size: 16px;" data-toggle="modal" data-target="#view-modal" id="<%= rs8.getString(1) %>" class="getCustomerdata"><%= rs8.getString(1) %></a></td>
 								<td><a href="" style="font-size: 16px;" data-toggle="modal" data-target="#view-modal1" id="<%= rs8.getString(2) %>" class="getBookdata"><%= rs8.getString(2) %></a></td>
 								<td>&#8377;<%= rs8.getString(4) %></td>
@@ -692,6 +692,26 @@
   </div>
 </div>
 
+<!-- Order Modal -->
+<div class="modal fade" id="view-modal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Order Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      	<div id="show-data3"></div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
 <!-- Edit book Modal -->
 <div class="modal fade" id="view-modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -807,6 +827,22 @@
  					data:"sellid="+sellid,
  					success:function(data){
  						$("#show-data2").html(data);
+ 					}
+ 				});
+ 			});
+ 		});
+	</script>
+	
+	<script type="text/javascript">
+ 		$(document).ready(function(){
+ 			$('.getOrderdata').click(function(){
+ 				var orderid=$(this).attr("id");
+ 				$.ajax({
+ 					url:"modalOrderData.jsp",
+ 					type:"post",
+ 					data:"orderid="+orderid,
+ 					success:function(data){
+ 						$("#show-data3").html(data);
  					}
  				});
  			});
