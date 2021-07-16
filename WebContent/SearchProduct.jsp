@@ -24,7 +24,7 @@
 				</div>
 				<!-- Search Bar -->	
 				<div class="container-search">
-				<form action="searchproduct.jsp" method="post">
+				<form action="SearchProduct.jsp" method="post">
 					<div class="search-box">
 						<input type="text" name="search" class="search" placeholder="What are you looking for?">
 						<button type="submit" class="search-btn">
