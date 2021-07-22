@@ -150,7 +150,7 @@
 				</div>
 				<%} %>
 				<%
-				ResultSet rs3 = st.executeQuery("SELECT sum(Price) FROM cart where Status!='Added to Cart' and Status!='Returned'");
+				ResultSet rs3 = st.executeQuery("SELECT sum(Price) FROM cart where Status!='Added to Cart' and Status!='Returned' and Status!='Cancelled'");
 				if(rs3.next()){
 					sum= rs3.getInt(1);
 				%>
@@ -229,6 +229,12 @@
 								{
 								%>
 								<td><span class="status-admin pending">Returning</span></td>
+								<%} %>
+								<%
+								if("Cancelled".equals(status))
+								{
+								%>
+								<td><span class="status-admin return">Cancelled</span></td>
 								<%} %>
 							</tr>
 						<%}}catch(Exception e){
@@ -605,7 +611,7 @@
 				</div>
 				<div class="data-admin-form1">
 					<label>Book ISBN Number</label>
-					<input type="text" name="bookisbn" pattern="^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$" title="Enter Correct ISBN" required>
+					<input type="text" name="bookisbn" title="Enter Correct ISBN" required>
 				</div>
 				<div class="data-admin-form1">
 					<label>Book Price</label>

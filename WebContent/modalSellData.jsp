@@ -60,7 +60,7 @@
   					</tr>
   					
   					<tr>
-    					<th>Number Of Years Used</th>
+    					<th>Number Of Months Used</th>
     					<td><%=rs.getString("SYearsUsed")%></td>
   					</tr>
   					

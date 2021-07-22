@@ -72,6 +72,7 @@
 					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Order Confirmed' or Status='In Progress' ");
 					while(rs.next()){
 						String bookid = rs.getString(2);
+						String status = rs.getString("Status");
 			%>
 			<tr>
 				<%
@@ -88,7 +89,13 @@
 							<h6><%=rs1.getString(2) %></h6>
 							<small>Price:  &#8377;<%=rs.getString(4) %> </small>
 							<br>
-							<small>Status:  <b><%=rs.getString(5) %></b></small>
+							<small>Status:  <b><%=rs.getString(5) %></b> 
+							<%if(status.equals("Order Confirmed")){ %>
+							| <a href="cancelorder.jsp?bookid=<%=rs1.getString(1) %>">Cancel Order</a>
+							<%}%>
+							</small>
+							<br>
+							
 						</div>
 					</div>
 				</td>
@@ -112,13 +119,13 @@
 			<tr>
 				<th>Product</th>
 				<th>Delivered Date</th>
-				<th>Return</th>
+				<th>Status</th>
 			</tr>
 			<%
 				try{
 					Connection con = ConnectionProvider.getCon();
 					Statement st = con.createStatement();
-					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Delivered' or Status='Returning' or Status='Returned'");
+					ResultSet rs = st.executeQuery("SELECT * FROM cart where CusID ="+cusid+" and Status='Delivered' or Status='Returning' or Status='Returned' or Status='Cancelled'");
 					while(rs.next()){
 						String bookid = rs.getString(2);
 						String status = rs.getString(5);
@@ -151,6 +158,8 @@
 				<%}
 				if(status.equals("Returned")){ %>
 				<p>Returned</p>	
+				<% }if(status.equals("Cancelled")){ %>
+				<p>Order Cancelled</p>	
 				<% }
 				%>
 				

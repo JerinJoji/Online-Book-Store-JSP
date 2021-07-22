@@ -49,7 +49,7 @@
   					
   		<tr>
     		<th>ISBN</th>
-    		<td><input type="text" name="bookisbn" placeholder="Enter Book ISBN" pattern="^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$" title="Enter Correct ISBN" required></td>
+    		<td><input type="text" name="bookisbn" placeholder="Enter Book ISBN" title="Enter Correct ISBN" required></td>
   		</tr>
   					
   		<tr>

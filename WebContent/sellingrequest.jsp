@@ -38,7 +38,7 @@
 						<li><a href="">Account</a></li>
 						<li><a href="orders.jsp">My Orders</a></li>
 						<li><a href="cart.jsp"><img src="assets/cart.png" width="30px" height="30px"></a></li>
-						<li><a href="logout.jsp" class="btn-logout">Logout</a></li>
+						
 					</ul>
 				</nav>
 				<img src="assets/menu.png" class="menu-icon" onclick="menutoggle()">
@@ -93,11 +93,11 @@
 							</div>
 							<div class="selling-input-box">
 								<span class="sell-details">ISBN (Example: ISBN 000-0-000-00000-0)</span>
-								<input type="text" placeholder="Enter the ISBN Number" name="sbookisbn" pattern="^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$" title="Enter Correct ISBN" required>
+								<input type="text" placeholder="Enter the ISBN Number" name="sbookisbn" title="Enter Correct ISBN" required>
 							</div>
 							<div class="selling-input-box">
-								<span class="sell-details">Number of Years Used</span>
-								<input type="number" max="10" placeholder="Enter the Number of Years Used" name="syearsused" required>
+								<span class="sell-details">Number of Months Used</span>
+								<input type="number" max="60" placeholder="Enter the Number of Years Used" name="syearsused" required>
 							</div>
 							<div class="selling-input-box">
 								<span class="sell-details">Book Real Price</span>

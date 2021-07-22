@@ -10,7 +10,7 @@ String book_id = request.getParameter("bookid");
 try{
 	Connection con = ConnectionProvider.getCon();
 	Statement st = con.createStatement();
-	st.executeUpdate("delete from cart where Book_ID='"+book_id+"' and CusID='"+cusid+"' and Status='Added to Cart'");
+	st.executeUpdate("delete from cart where Book_ID='"+book_id+"' and CusID='"+cusid+"' and Status='Added to Cart' or Status='Bill'");
 	response.sendRedirect("cart.jsp");
 }catch(Exception e){
 	System.out.println(e);
